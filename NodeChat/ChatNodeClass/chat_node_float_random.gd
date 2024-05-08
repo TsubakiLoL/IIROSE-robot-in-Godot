@@ -1,0 +1,14 @@
+extends ChatNode
+class_name ChatNodeFloatRandom
+func _init(root:NodeRoot) -> void:
+	super._init(root)
+	type=30
+	input_port_array=["Dictionary"]
+	output_port_array=["Float"]
+	init_input()
+
+func process_input(id:String):
+	sent_data_to_out(randf(),0,id)
+	
+
+

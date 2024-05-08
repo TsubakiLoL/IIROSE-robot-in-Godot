@@ -1,0 +1,612 @@
+[gd_scene load_steps=17 format=3 uid="uid://ctcut434jsvlp"]
+
+[ext_resource type="PackedScene" uid="uid://ch4ecmb0t6je5" path="res://NodeChat/welcome/tscn/file_system.tscn" id="1_iag73"]
+[ext_resource type="Script" path="res://NodeChat/welcome/script/control.gd" id="1_vb2ii"]
+[ext_resource type="PackedScene" uid="uid://vt1oy0yuew3c" path="res://NodeChat/doc/tscn/docwin.tscn" id="3_c853p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4bsg"]
+bg_color = Color(0.215686, 0.215686, 0.215686, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_71rxn"]
+bg_color = Color(0.211765, 0.6, 0.6, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_muesx"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_uytei"]
+font_size = 70
+font_color = Color(0.427451, 0.427451, 0.427451, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rrdwp"]
+font_size = 30
+font_color = Color(0.568627, 0.568627, 0.568627, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_acbw1"]
+font_size = 30
+font_color = Color(0.505882, 0.505882, 0.505882, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cfwyl"]
+font_color = Color(0.658824, 0.658824, 0.658824, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_th2kt"]
+font_size = 50
+font_color = Color(0.443137, 0.443137, 0.443137, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_n3oo4"]
+font_size = 50
+font_color = Color(0.423529, 0.423529, 0.423529, 1)
+
+[sub_resource type="Gradient" id="Gradient_by1ao"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b0yxf"]
+gradient = SubResource("Gradient_by1ao")
+width = 32
+height = 32
+fill_from = Vector2(0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_24m41"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_u0o70"]
+font_size = 50
+font_color = Color(0.443137, 0.443137, 0.443137, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vb2ii")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.188
+anchor_bottom = 1.0
+offset_right = 0.423996
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.121569, 0.121569, 0.121569, 1)
+
+[node name="select" type="Control" parent="Control"]
+layout_mode = 1
+anchor_left = 0.129
+anchor_top = 0.165
+anchor_right = 0.862
+anchor_bottom = 0.918
+offset_left = 0.00699806
+offset_top = 0.0799942
+offset_right = -0.0540161
+offset_bottom = 0.135986
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/select"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="welcome" type="Button" parent="Control/select/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k4bsg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_71rxn")
+text = "欢迎"
+
+[node name="file" type="Button" parent="Control/select/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k4bsg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_71rxn")
+text = "文件"
+
+[node name="iirose" type="Button" parent="Control/select/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k4bsg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_71rxn")
+text = "蔷薇"
+
+[node name="gpt" type="Button" parent="Control/select/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k4bsg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_71rxn")
+text = "GPT"
+
+[node name="doc" type="Button" parent="Control/select/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k4bsg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_71rxn")
+text = "文档"
+
+[node name="Button4" type="Button" parent="Control/select/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k4bsg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_71rxn")
+text = "作者"
+
+[node name="name" type="Control" parent="Control"]
+layout_mode = 1
+anchor_left = 0.129
+anchor_top = 0.02
+anchor_right = 0.862
+anchor_bottom = 0.142
+offset_left = 0.00699806
+offset_top = 0.039999
+offset_right = -0.0540161
+offset_bottom = -0.0160065
+
+[node name="Label" type="Label" parent="Control/name"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NodeChat"
+label_settings = SubResource("LabelSettings_muesx")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Control2" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.188
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.423996
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 2
+tabs_visible = false
+
+[node name="welcome" type="Control" parent="Control2/TabContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control2/TabContainer/welcome"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control2/TabContainer/welcome/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Control2/TabContainer/welcome/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "欢迎使用！"
+label_settings = SubResource("LabelSettings_uytei")
+
+[node name="Label2" type="Label" parent="Control2/TabContainer/welcome/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "椿的蔷薇花园工具集合"
+label_settings = SubResource("LabelSettings_rrdwp")
+
+[node name="Label4" type="Label" parent="Control2/TabContainer/welcome/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "本项目是基于状态机和工厂流水线模式的一个预设机器人框架，通过可视化节点进行预设逻辑的编辑"
+label_settings = SubResource("LabelSettings_acbw1")
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="Control2/TabContainer/welcome/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "相关链接"
+label_settings = SubResource("LabelSettings_cfwyl")
+horizontal_alignment = 2
+
+[node name="LinkButton" type="LinkButton" parent="Control2/TabContainer/welcome/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "蔷薇花园"
+uri = "https://iirose.com/"
+
+[node name="LinkButton2" type="LinkButton" parent="Control2/TabContainer/welcome/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "GitHub"
+uri = "https://github.com/TsubakiLoL/IIROSE-robot-in-Godot"
+
+[node name="file" type="Control" parent="Control2/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control2/TabContainer/file"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Control" type="Control" parent="Control2/TabContainer/file/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control2/TabContainer/file/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.118
+offset_bottom = 0.255997
+grow_horizontal = 2
+text = "文件"
+label_settings = SubResource("LabelSettings_th2kt")
+
+[node name="Control" parent="Control2/TabContainer/file/MarginContainer/Control" instance=ExtResource("1_iag73")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.143
+offset_top = 0.0559998
+
+[node name="iirose" type="Control" parent="Control2/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control2/TabContainer/iirose"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Control" type="Control" parent="Control2/TabContainer/iirose/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control2/TabContainer/iirose/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.33
+anchor_bottom = 0.118
+offset_right = -0.350006
+offset_bottom = 0.255997
+grow_horizontal = 2
+text = "蔷薇登录"
+label_settings = SubResource("LabelSettings_n3oo4")
+
+[node name="flag" type="Button" parent="Control2/TabContainer/iirose/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.953
+anchor_right = 1.0
+anchor_bottom = 0.071
+offset_left = 0.0649414
+offset_bottom = -0.168003
+grow_horizontal = 0
+icon = SubResource("GradientTexture2D_b0yxf")
+icon_alignment = 1
+expand_icon = true
+
+[node name="keylabel" type="Label" parent="Control2/TabContainer/iirose/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.021
+anchor_top = 0.209
+anchor_right = 0.218
+anchor_bottom = 0.327
+offset_left = 0.204998
+offset_top = -0.0720062
+offset_right = -0.110016
+offset_bottom = 0.18399
+text = "用户名:"
+label_settings = SubResource("LabelSettings_24m41")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="keylabel2" type="Label" parent="Control2/TabContainer/iirose/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.021
+anchor_top = 0.395
+anchor_right = 0.218
+anchor_bottom = 0.513
+offset_left = 0.204998
+offset_top = -0.160004
+offset_right = -0.110016
+offset_bottom = 0.0960083
+text = "密码:"
+label_settings = SubResource("LabelSettings_24m41")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="keylabel3" type="Label" parent="Control2/TabContainer/iirose/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.021
+anchor_top = 0.571
+anchor_right = 0.218
+anchor_bottom = 0.689
+offset_left = 0.205029
+offset_top = -0.16803
+offset_right = -0.109985
+offset_bottom = 0.0879822
+text = "房间:"
+label_settings = SubResource("LabelSettings_24m41")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="name" type="LineEdit" parent="Control2/TabContainer/iirose/MarginContainer/Control"]
+modulate = Color(0, 1, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.236
+anchor_top = 0.215
+anchor_right = 0.942
+anchor_bottom = 0.334
+offset_left = -0.220001
+offset_top = 0.279999
+offset_right = -0.0900269
+offset_bottom = -0.0720062
+placeholder_text = "/name"
+
+[node name="password" type="LineEdit" parent="Control2/TabContainer/iirose/MarginContainer/Control"]
+modulate = Color(0, 1, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.236
+anchor_top = 0.395
+anchor_right = 0.942
+anchor_bottom = 0.513
+offset_left = -0.220001
+offset_top = -0.160004
+offset_right = -0.0900269
+offset_bottom = 0.0960083
+placeholder_text = "/password"
+secret = true
+secret_character = "*"
+
+[node name="room" type="LineEdit" parent="Control2/TabContainer/iirose/MarginContainer/Control"]
+modulate = Color(0, 1, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.236
+anchor_top = 0.571
+anchor_right = 0.942
+anchor_bottom = 0.689
+offset_left = -0.220001
+offset_top = -0.16803
+offset_right = -0.0900269
+offset_bottom = 0.0879822
+placeholder_text = "/room"
+
+[node name="login" type="Button" parent="Control2/TabContainer/iirose/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.196
+anchor_top = 0.839
+anchor_right = 0.369
+anchor_bottom = 0.946
+offset_left = -0.420013
+offset_top = -0.11203
+offset_right = -0.255005
+offset_bottom = 0.83197
+text = "登录"
+
+[node name="shouldsave" type="CheckBox" parent="Control2/TabContainer/iirose/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.218
+anchor_top = 0.729
+anchor_right = 0.383
+anchor_bottom = 0.811
+offset_left = -0.110016
+offset_top = -0.232025
+offset_right = 0.214996
+offset_bottom = -0.0880432
+theme_override_font_sizes/font_size = 20
+text = "记住密码"
+alignment = 1
+
+[node name="roommove" type="LineEdit" parent="Control2/TabContainer/iirose/MarginContainer/Control"]
+modulate = Color(0, 1, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.401
+anchor_top = 0.729
+anchor_right = 0.731
+anchor_bottom = 0.799
+offset_left = 0.10498
+offset_top = -0.232025
+offset_right = -0.244995
+offset_bottom = 0.207977
+placeholder_text = "移动到的房间ID"
+
+[node name="move" type="Button" parent="Control2/TabContainer/iirose/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.774
+anchor_top = 0.729
+anchor_right = 0.873
+anchor_bottom = 0.799
+offset_left = 0.269958
+offset_top = -0.232025
+offset_right = -10.335
+offset_bottom = 0.207977
+text = "移动到房间"
+
+[node name="gpt" type="Control" parent="Control2/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control2/TabContainer/gpt"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Control" type="Control" parent="Control2/TabContainer/gpt/MarginContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="Control2/TabContainer/gpt/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.118
+offset_bottom = 0.255997
+grow_horizontal = 2
+text = "GPT设置"
+label_settings = SubResource("LabelSettings_u0o70")
+
+[node name="keylabel" type="Label" parent="Control2/TabContainer/gpt/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.021
+anchor_top = 0.281
+anchor_right = 0.218
+anchor_bottom = 0.401
+offset_left = 0.204998
+offset_top = 0.151993
+offset_right = -0.110016
+offset_bottom = -0.808014
+text = "key："
+label_settings = SubResource("LabelSettings_24m41")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="APIlabel" type="Label" parent="Control2/TabContainer/gpt/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.021
+anchor_top = 0.5
+anchor_right = 0.218
+anchor_bottom = 0.625
+offset_left = 0.205013
+offset_top = -1.0
+offset_right = -0.110001
+offset_bottom = -5.0
+text = "API url："
+label_settings = SubResource("LabelSettings_24m41")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="key" type="LineEdit" parent="Control2/TabContainer/gpt/MarginContainer/Control"]
+modulate = Color(0, 1, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.236
+anchor_top = 0.281
+anchor_right = 0.942
+anchor_bottom = 0.414
+offset_left = -0.220016
+offset_top = 4.15199
+offset_right = -0.0900269
+offset_bottom = -4.71202
+placeholder_text = "请输入key，例如sk-xxxxxxxxxxxx"
+
+[node name="url" type="LineEdit" parent="Control2/TabContainer/gpt/MarginContainer/Control"]
+modulate = Color(0, 1, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.236
+anchor_top = 0.48
+anchor_right = 0.939
+anchor_bottom = 0.625
+offset_left = -0.220016
+offset_top = 16.16
+offset_right = 2.59491
+placeholder_text = "请输入API url,例如https://api.openai.com/v1/chat/completions（如无后缀请补全）"
+
+[node name="gpt_save" type="Button" parent="Control2/TabContainer/gpt/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.12
+anchor_top = 0.783
+anchor_right = 0.298
+anchor_bottom = 0.868
+offset_left = -0.399986
+offset_top = -0.0640259
+offset_right = -4.71002
+offset_bottom = 0.255981
+text = "保存"
+
+[node name="loginmes" type="PopupPanel" parent="."]
+position = Vector2i(685, 65)
+size = Vector2i(300, 500)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="loginmes"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 296.0
+offset_bottom = 496.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="RichTextLabel" parent="loginmes/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="docwin" parent="." instance=ExtResource("3_c853p")]
+visible = false
+
+[connection signal="pressed" from="Control/select/VBoxContainer/welcome" to="." method="_on_welcome_pressed"]
+[connection signal="pressed" from="Control/select/VBoxContainer/file" to="." method="_on_file_pressed"]
+[connection signal="pressed" from="Control/select/VBoxContainer/iirose" to="." method="_on_iirose_pressed"]
+[connection signal="pressed" from="Control/select/VBoxContainer/gpt" to="." method="_on_gpt_pressed"]
+[connection signal="pressed" from="Control/select/VBoxContainer/doc" to="." method="_on_doc_pressed"]
+[connection signal="edit_file" from="Control2/TabContainer/file/MarginContainer/Control/Control" to="." method="_on_control_edit_file"]
+[connection signal="pressed" from="Control2/TabContainer/iirose/MarginContainer/Control/flag" to="." method="_on_flag_pressed"]
+[connection signal="pressed" from="Control2/TabContainer/iirose/MarginContainer/Control/login" to="." method="_on_login_pressed"]
+[connection signal="pressed" from="Control2/TabContainer/iirose/MarginContainer/Control/move" to="." method="_on_move_pressed"]
+[connection signal="pressed" from="Control2/TabContainer/gpt/MarginContainer/Control/gpt_save" to="." method="_on_gpt_save_pressed"]

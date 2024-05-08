@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=3 uid="uid://blmmmfb7cful4"]
+
+[ext_resource type="Script" path="res://NodeChat/welcome/script/single_file.gd" id="1_g76q6"]
+[ext_resource type="Texture2D" uid="uid://cpp2x8gd6werb" path="res://NodeChat/welcome/res/start.png" id="1_xyihy"]
+[ext_resource type="Texture2D" uid="uid://d33bxh6p3cmrc" path="res://NodeChat/welcome/res/edit.png" id="2_gtmas"]
+[ext_resource type="Texture2D" uid="uid://wwak1qcmhc0t" path="res://NodeChat/welcome/res/delete.png" id="4_horj0"]
+[ext_resource type="Texture2D" uid="uid://bwt6rxdr1vcu1" path="res://NodeChat/welcome/res/data.png" id="5_g8ocj"]
+
+[node name="single_file" type="Control"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.187
+offset_bottom = -71.176
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+script = ExtResource("1_g76q6")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.317647, 0.317647, 0.317647, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="name" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 10.0
+text = "example.nodeset
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="run" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("1_xyihy")
+icon_alignment = 1
+expand_icon = true
+
+[node name="edit" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("2_gtmas")
+icon_alignment = 1
+expand_icon = true
+
+[node name="delete" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("4_horj0")
+icon_alignment = 1
+expand_icon = true
+
+[node name="data" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 10.0
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="data_select" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("5_g8ocj")
+expand_icon = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="pressed" from="HBoxContainer/run" to="." method="_on_run_pressed"]
+[connection signal="pressed" from="HBoxContainer/edit" to="." method="_on_edit_pressed"]
+[connection signal="pressed" from="HBoxContainer/delete" to="." method="_on_delete_pressed"]
+[connection signal="pressed" from="HBoxContainer/data_select" to="." method="_on_data_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

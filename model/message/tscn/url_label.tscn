@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq6t2pmfoue07"]
+
+[ext_resource type="Script" path="res://model/message/tscn/url_label.gd" id="1_hiv1g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2aa0q"]
+font_size = 100
+
+[node name="url_label" type="HFlowContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 10
+script = ExtResource("1_hiv1g")
+text = " [*肆肆*]  谢谢捏[http://i03piccdn.sogoucdn.com/efb0086bf9d672a3#.jpg#e]123132321412124241"
+label_settings = SubResource("LabelSettings_2aa0q")

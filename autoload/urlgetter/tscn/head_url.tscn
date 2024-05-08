@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxxtv6i01nrvk"]
+
+[ext_resource type="Script" path="res://autoload/urlgetter/script/head_url.gd" id="1_7eafr"]
+
+[node name="HTTPRequest" type="HTTPRequest"]
+timeout = 120.0
+script = ExtResource("1_7eafr")
+
+[connection signal="request_completed" from="." to="." method="_on_request_completed"]

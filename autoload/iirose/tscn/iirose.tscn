@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwqbx4pknqgf2"]
+
+[ext_resource type="Script" path="res://autoload/iirose/script/iirose.gd" id="1_dmn20"]
+
+[node name="IIROSE" type="Node"]
+process_mode = 3
+script = ExtResource("1_dmn20")
+
+[node name="ping_timer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[connection signal="connected_to_server" from="." to="." method="connected"]
+[connection signal="connection_closed" from="." to="." method="closed"]
+[connection signal="message_received" from="." to="." method="get_mes"]
+[connection signal="timeout" from="ping_timer" to="." method="ping"]

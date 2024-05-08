@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://bcjf0phrj3us4"]
+
+[ext_resource type="Shader" path="res://shader/message_in_animation.gdshader" id="1_qw0h4"]
+[ext_resource type="Script" path="res://model/message/script/message_mono.gd" id="1_wit3m"]
+[ext_resource type="Texture2D" uid="uid://cqq74i6qquunl" path="res://icon.svg" id="2_c1q4n"]
+[ext_resource type="Script" path="res://model/urlRichlabel/script/url_rich.gd" id="3_w4p58"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1b40e"]
+shader = ExtResource("1_qw0h4")
+shader_parameter/offset = 0.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_xiqva"]
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+outline_size = 7
+
+[node name="HBoxContainer" type="HBoxContainer"]
+material = SubResource("ShaderMaterial_1b40e")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+script = ExtResource("1_wit3m")
+
+[node name="Control" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+alignment = 2
+
+[node name="name" type="Label" parent="Control"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+text = "姓名"
+label_settings = SubResource("LabelSettings_xiqva")
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 3
+
+[node name="head" type="TextureRect" parent="Control"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_c1q4n")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Control2" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="ColorRect" type="ColorRect" parent="Control2"]
+layout_mode = 2
+color = Color(0.298039, 0.54902, 0.603922, 0.792157)
+
+[node name="message" type="RichTextLabel" parent="Control2"]
+layout_mode = 2
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+script = ExtResource("3_w4p58")

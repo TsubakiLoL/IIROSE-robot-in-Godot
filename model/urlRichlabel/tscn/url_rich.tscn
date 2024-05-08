@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqcd1akfqbw3c"]
+
+[ext_resource type="Script" path="res://model/urlRichlabel/script/url_rich.gd" id="1_qsiaj"]
+
+[node name="RichTextLabel" type="RichTextLabel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+fit_content = true
+shortcut_keys_enabled = false
+script = ExtResource("1_qsiaj")
+text_in = "[http://r.iirose.com/i/24/1/19/17/4644-3W.jpg#e]"
