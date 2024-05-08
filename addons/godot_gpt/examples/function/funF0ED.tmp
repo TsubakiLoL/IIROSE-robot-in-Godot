@@ -50,7 +50,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_a4do1")
-api_key = "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"
 gpt = NodePath("GPTChatRequest")
 chat_history_scroll = NodePath("VBoxContainer/ScrollContainer")
 chat_history = NodePath("VBoxContainer/ScrollContainer/chat_history")
