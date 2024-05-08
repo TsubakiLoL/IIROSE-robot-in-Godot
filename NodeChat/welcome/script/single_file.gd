@@ -9,6 +9,7 @@ const START = preload("res://NodeChat/welcome/res/start.png")
 @onready var data: Label = $HBoxContainer/data
 signal delete_self(s:SingleFile)
 signal edit_file_request(path:String)
+signal changed
 var is_run:bool=false
 var now_root:NodeRoot
 var root_path:String:
@@ -57,13 +58,13 @@ func set_file(f_path:String):
 		root_path=f_path
 func set_data(d_path:String):
 	data_path=d_path
-
 func _on_data_pressed() -> void:
 	DisplayServer.file_dialog_show("选择数据集文件"," "," ",false,DisplayServer.FILE_DIALOG_MODE_OPEN_FILE,PackedStringArray(),data_selected)
 	pass # Replace with function body.
 func data_selected(status:bool,selected_paths:PackedStringArray,selected_filter_index:int):
 	if status:
 		data_path=selected_paths[0]
+		changed.emit()
 
 
 func _on_timer_timeout() -> void:

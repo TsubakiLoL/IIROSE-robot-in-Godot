@@ -19,12 +19,15 @@ func _ready() -> void:
 				add_single(new_single)
 				new_single.root_path=i[0]
 				new_single.data_path=i[1]
+				
 		f.close()
 func add_single(ins:SingleFile):
 	$ScrollContainer/VBoxContainer.add_child(ins)	
 	ins.delete_self.connect(delete_request)		
 	ins.edit_file_request.connect(edit_file_request)
+	ins.changed.connect(save)
 func save():
+	print("save")
 	var new_array:Array=[]
 	for i in $ScrollContainer/VBoxContainer.get_children():
 		if i is SingleFile:

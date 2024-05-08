@@ -1,24 +1,4 @@
 class_name Serializater
-static var node_chat_class:Dictionary={
-	0:ChatNodeState,									#状态节点
-	1:ChatNodeTriger,									#触发器节点
-	2:ChatNodeSentBulletMessage,						#弹幕发送器
-	3:ChatNodeSentBulletMessageStatic,					#静态弹幕发送器
-	4:ChatNodeSentRoomMessage,							#房间信息发送器
-	5:ChatNodeSentRoomMessageStatic,					#静态房间信息发送器
-	6:ChatNodeDicToStr,									#字典字符串转换
-	7:ChatNodeChangeState,								#状态转换器
-	8:ChatNodeStrJudge,									#字符串判定器
-	9:ChatNodeSentRoomMessageMultiInput,				#多输入房间信息发送器
-	10:ChatNodeAnd,										#与门
-	11:ChatNodeOr,										#或门
-	12:ChatNodeNot,										#非门
-	13:ChatNodeStrConnect,								#字符串链接器
-	14:ChatNodeStrOutput,								#静态字符串输出
-	15:ChatNodeAt,										#艾特器
-	16:ChatNodeSentBulletMessageMultiInput,				#多输入弹幕发送器
-	17:ChatNodeRegex,									#正则匹配器
-}
 static func stringfy_state_root_new(s:NodeRoot)->String:
 	var res:Array=[]
 	var node_dic={}

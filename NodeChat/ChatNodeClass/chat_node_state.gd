@@ -43,6 +43,7 @@ func process_input(id:String):
 func bullet_message(mes:Dictionary):
 	if mes.has("uid"):
 		sent_data_to_out([triger_type.TYPE_BULLET,mes],0,mes["uid"])
+		VLR(mes["uid"])
 func room_message(mes:Dictionary):
 	print("状态收到房间消息",mes)
 	if mes.has("uid"):
@@ -52,6 +53,7 @@ func room_message(mes:Dictionary):
 func side_message(mes:Dictionary):
 	if mes.has("uid"):
 		sent_data_to_out([triger_type.TYPE_SIDE,mes],0,mes["uid"])
+		VLR(mes["uid"])
 
 func enter_state(id:String):
 	sent_data_to_out([triger_type.TYPE_ENTER,{}],0,id)

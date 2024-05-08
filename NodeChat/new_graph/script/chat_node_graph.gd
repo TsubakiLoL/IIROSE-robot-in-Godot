@@ -45,6 +45,10 @@ static var node_chat_class:Dictionary={
 	39:ChatNodeGPTRequestWithName,		#带名字的GPT请求器
 	40:ChatNodeDicHub,					#字典集线器
 	41:ChatNodeFloatHub,				#数字集线器
+	42:ChatNodeGetUniqueString,			#全用户字符串读取器
+	43:ChatNodeAddUniqueString,			#全用户字符串添加器
+	44:ChatNodeAddUniqueStringWithControl,#带控制端口的全用户字符串添加器
+	45:ChatNodeClearUniqueString,		#全用户变量清除器
 }
 
 static var type_num:Dictionary={
@@ -115,6 +119,10 @@ static var node_name:Dictionary={
 	39:"带名字的GPT请求器",
 	40:"字典集线器",
 	41:"数字集线器",
+	42:"全用户字符串读取器",
+	43:"全用户字符串添加器",
+	44:"带控制端口的全用户字符串添加器",
+	45:"全用户变量清除器",
 }
 func _ready() -> void:
 	position_offset_changed.connect(_on_position_offset_changed)
