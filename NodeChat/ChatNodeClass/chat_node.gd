@@ -33,6 +33,10 @@ var variable_name_view:Array[String]=[]
 var input_port_data:Array=[]
 ##用于标注输入数据就位的数组
 var input_port_ready:Array[bool]=[]
+##输出数据的数组
+var output_port_data:Array=[]
+##输出是否准备好
+var is_out_ready:bool=false
 ##链接的下级节点
 var next_node_array:Array[Array]=[]
 ##链接的上级节点
@@ -45,9 +49,12 @@ func _init(root:NodeRoot) -> void:
 func init_input():
 	input_port_data.clear()
 	input_port_ready.clear()
+	output_port_data.clear()
 	for i in input_port_array:
 		input_port_data.append(false)
 		input_port_ready.append(false)
+	for i in output_port_array:
+		output_port_data.append(false)
 ##执行当前端口的输入逻辑
 func act(input,to_port:int,id:String):
 	print("节点类型：",ChatNodeGraph.node_name[type]," ID:",self.id," 端口:",to_port,"收到输入",input)
@@ -56,6 +63,7 @@ func act(input,to_port:int,id:String):
 		input_port_ready[to_port]=true
 		if is_ready():
 			process_input(id)
+			is_out_ready=true
 			for i in range(input_port_ready.size()):
 				input_port_ready[i]=false
 ##当前所有输入端口的数据是否全部准备好
@@ -74,9 +82,10 @@ func process_input(id:String):
 ##将数据发送到端口
 func sent_data_to_out(output,port:int,id:String)->bool:
 	if port<output_port_array.size():
-		for i in next_node_array:
-			if i[1]==port:
-				i[0].act(output,i[2],id)
+		output_port_data[port]=output
+		#for i in next_node_array:
+			#if i[1]==port:
+				#i[0].act(output,i[2],id)
 		return true
 	else:
 		return false
