@@ -33,6 +33,10 @@ window/handheld/orientation=1
 
 enabled=PackedStringArray("res://addons/easy_charts/plugin.cfg", "res://addons/godot_gpt/plugin.cfg")
 
+[gui]
+
+theme/custom_font="res://font/SMILEYSANS-OBLIQUE.OTF"
+
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true
