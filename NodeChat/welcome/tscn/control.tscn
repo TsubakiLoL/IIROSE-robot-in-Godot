@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://ctcut434jsvlp"]
+[gd_scene load_steps=18 format=3 uid="uid://ctcut434jsvlp"]
 
 [ext_resource type="PackedScene" uid="uid://ch4ecmb0t6je5" path="res://NodeChat/welcome/tscn/file_system.tscn" id="1_iag73"]
 [ext_resource type="Script" path="res://NodeChat/welcome/script/control.gd" id="1_vb2ii"]
+[ext_resource type="PackedScene" uid="uid://4itgyo6ryn02" path="res://NodeChat/WebFileSys/tscn/webfile.tscn" id="3_0o8h4"]
 [ext_resource type="PackedScene" uid="uid://vt1oy0yuew3c" path="res://NodeChat/doc/tscn/docwin.tscn" id="3_c853p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k4bsg"]
@@ -32,6 +33,10 @@ font_color = Color(0.658824, 0.658824, 0.658824, 1)
 font_size = 50
 font_color = Color(0.443137, 0.443137, 0.443137, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_u0o70"]
+font_size = 50
+font_color = Color(0.443137, 0.443137, 0.443137, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_n3oo4"]
 font_size = 50
 font_color = Color(0.423529, 0.423529, 0.423529, 1)
@@ -47,10 +52,6 @@ fill_from = Vector2(0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_24m41"]
 font_size = 30
-
-[sub_resource type="LabelSettings" id="LabelSettings_u0o70"]
-font_size = 50
-font_color = Color(0.443137, 0.443137, 0.443137, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -120,6 +121,14 @@ size_flags_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_k4bsg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_71rxn")
 text = "文件"
+
+[node name="plugin" type="Button" parent="Control/select/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k4bsg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_71rxn")
+text = "插件"
 
 [node name="iirose" type="Button" parent="Control/select/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
@@ -194,9 +203,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 2
+current_tab = 2
 tabs_visible = false
 
 [node name="welcome" type="Control" parent="Control2/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Control2/TabContainer/welcome"]
@@ -285,6 +296,38 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.143
 offset_top = 0.0559998
+
+[node name="plugin" type="Control" parent="Control2/TabContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control2/TabContainer/plugin"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Control" type="Control" parent="Control2/TabContainer/plugin/MarginContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="Control2/TabContainer/plugin/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.118
+offset_bottom = 0.255997
+grow_horizontal = 2
+text = "插件"
+label_settings = SubResource("LabelSettings_u0o70")
+
+[node name="Webfile" parent="Control2/TabContainer/plugin/MarginContainer/Control" instance=ExtResource("3_0o8h4")]
+layout_mode = 1
+offset_top = 74.0
 
 [node name="iirose" type="Control" parent="Control2/TabContainer"]
 visible = false
@@ -602,6 +645,7 @@ visible = false
 
 [connection signal="pressed" from="Control/select/VBoxContainer/welcome" to="." method="_on_welcome_pressed"]
 [connection signal="pressed" from="Control/select/VBoxContainer/file" to="." method="_on_file_pressed"]
+[connection signal="pressed" from="Control/select/VBoxContainer/plugin" to="." method="_on_plugin_pressed"]
 [connection signal="pressed" from="Control/select/VBoxContainer/iirose" to="." method="_on_iirose_pressed"]
 [connection signal="pressed" from="Control/select/VBoxContainer/gpt" to="." method="_on_gpt_pressed"]
 [connection signal="pressed" from="Control/select/VBoxContainer/doc" to="." method="_on_doc_pressed"]

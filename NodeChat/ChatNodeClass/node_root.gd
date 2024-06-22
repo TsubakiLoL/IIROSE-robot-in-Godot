@@ -24,10 +24,12 @@ func add_node(n:ChatNode):
 	n.id=str(ind)
 	ind+=1
 	node_list.append(n)
+##通过id查找节点
 func find_node_by_id(id:String):
 	for i in node_list:
 		if i.id==id:
 			return i
+##从文件中读取数据
 func read_data_from_file():
 	if data_path!=null:
 		var f=FileAccess.open(data_path,FileAccess.READ)
@@ -74,6 +76,7 @@ func get_data(id:String,data_name:String)->float:
 		else:
 			user_data_dic[id][data_name]=float(0)
 			return 0
+##从数据中获取String类型的变量，用户ID和数据名称
 func get_string(id:String,data_name:String)->Array:
 	var res=[false,""]
 	if not user_data_dic.has(id):
@@ -85,6 +88,7 @@ func get_string(id:String,data_name:String)->Array:
 			res[0]=true
 			res[1]=data[ind]
 	return res
+##向数据中添加String类型的持久型数据，用户ID和数据名称和设置的值
 func add_string(id:String,data_name:String,value:String):
 	if not user_data_dic.has(id):
 		user_data_dic[id]={}
@@ -97,6 +101,7 @@ func add_string(id:String,data_name:String,value:String):
 		else:
 			data.append(value)
 		user_data_dic[id][data_name]=data
+##清除持久性数据的String类型变量，用户ID和数据名称
 func clear_string(id:String,data_name:String):
 	if not user_data_dic.has(id):
 		user_data_dic[id]={}
@@ -131,7 +136,7 @@ func judge()->void:
 			var str:String=JSON.stringify(user_data_dic)
 			f.store_string(str)
 			f.close()
-
+##向字典中写入自身数据
 func export_data(data:Dictionary):
 	data["time_to_delete_instance"]=time_to_delete_instance
 	data["judge_time"]=judge_time
@@ -139,17 +144,18 @@ func export_data(data:Dictionary):
 		data["init_state"]=init_state.id
 	else:
 		data["init_state"]=null
+##从字典中读取数据
 func load_from_data(data:Dictionary):
 	if data.has("time_to_delete_instance") and data.has("judge_time"):
 		time_to_delete_instance=data["time_to_delete_instance"]
 		judge_time=data["judge_time"]
-
+##删除自身
 func delete():
 	for i in node_list:
 		i.delete()
 	call_deferred("free")
 
-
+##收到房间信息时调用
 func room_message(arr:Array):
 	for i in arr:
 		if i["name"]!=IIROSE.get_self_name():
@@ -161,6 +167,7 @@ func room_message(arr:Array):
 			now_state.room_message(i)
 				
 	pass
+##收到弹幕消息时调用
 func bullet_message(arr:Array):
 	for i in arr:
 		if i["name"]!=IIROSE.get_self_name():
@@ -174,7 +181,7 @@ func bullet_message(arr:Array):
 
 
 
-
+##收到私聊消息时调用
 func side_message(arr:Array):
 	for i in arr:
 		if i["name"]!=IIROSE.get_self_name():
@@ -184,18 +191,21 @@ func side_message(arr:Array):
 				add_user_instance(i["uid"])
 			var now_state:ChatNodeState=user_instance_array[i["uid"]][0]
 			now_state.side_message(i)
+##启动此根节点
 func start():
 	IIROSE.room_message_received.connect(room_message)
 	IIROSE.bullet_message_received.connect(bullet_message)
 	IIROSE.side_message_received.connect(side_message)
 	read_data_from_file()
 	is_start=true
+##结束此根节点
 func end():
 	if is_start:
 		IIROSE.room_message_received.disconnect(room_message)
 		IIROSE.bullet_message_received.disconnect(bullet_message)
 		IIROSE.side_message_received.disconnect(side_message)
 		is_start=false
+##重载此根节点ID队列，将命名计数器自动转换为当前节点队列的上限+1
 func reload_id():
 	for i in node_list:
 		if i.id.is_valid_int():

@@ -70,12 +70,12 @@ func save_account(n:String,p:String,r:String):
 		f.close()
 	pass
 func _on_iirose_pressed() -> void:
-	$Control2/TabContainer.set_current_tab(2)
+	$Control2/TabContainer.set_current_tab(3)
 	pass # Replace with function body.
 
 
 func _on_gpt_pressed() -> void:
-	$Control2/TabContainer.set_current_tab(3)
+	$Control2/TabContainer.set_current_tab(4)
 	var res=ChatGPT.get_key_and_url()
 	if res is Array and res.size()==2 and res[0] is String and res[1] is String:
 		$Control2/TabContainer/gpt/MarginContainer/Control/key.text=res[0]
@@ -98,4 +98,9 @@ func _on_move_pressed() -> void:
 
 func _on_doc_pressed() -> void:
 	$docwin.show()
+	pass # Replace with function body.
+
+
+func _on_plugin_pressed() -> void:
+	tab_container.set_current_tab(2)
 	pass # Replace with function body.

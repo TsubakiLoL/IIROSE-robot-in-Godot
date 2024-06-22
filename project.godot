@@ -24,6 +24,7 @@ LoadAnimation="*res://autoload/loadanima/tscn/load_animation.tscn"
 IIROSE="*res://autoload/iirose/tscn/iirose.tscn"
 NodeChatGlobalNum="*res://NodeChat/AutoLoad/node_chat_global_num.tscn"
 ChatGPT="*res://autoload/GPT/tscn/chat_gpt.tscn"
+Toast="*res://autoload/toast/tscn/toast_root.tscn"
 
 [display]
 

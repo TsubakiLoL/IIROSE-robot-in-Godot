@@ -72,7 +72,7 @@ func is_ready()->bool:
 	for i in input_port_ready:
 		res=res and i
 	return res
-##对输入进行处理
+##对输入进行处理，交给子类进行数据处理，当前端口数据存在input_port_data:Array中
 func process_input(id:String):
 	
 	
@@ -83,9 +83,6 @@ func process_input(id:String):
 func sent_data_to_out(output,port:int,id:String)->bool:
 	if port<output_port_array.size():
 		output_port_data[port]=output
-		#for i in next_node_array:
-			#if i[1]==port:
-				#i[0].act(output,i[2],id)
 		return true
 	else:
 		return false
