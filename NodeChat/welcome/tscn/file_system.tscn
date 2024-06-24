@@ -34,9 +34,14 @@ anchor_bottom = 0.09
 offset_bottom = -0.320004
 grow_horizontal = 2
 
-[node name="load_file" type="Button" parent="HBoxContainer"]
+[node name="refresh_file" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
+text = "刷新节点集"
+
+[node name="load_file" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
 text = "加载节点集"
 
 [node name="add_file" type="Button" parent="HBoxContainer"]
@@ -44,5 +49,6 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "创建节点集"
 
+[connection signal="pressed" from="HBoxContainer/refresh_file" to="." method="_on_refresh_file_pressed"]
 [connection signal="pressed" from="HBoxContainer/load_file" to="." method="_on_load_file_pressed"]
 [connection signal="pressed" from="HBoxContainer/add_file" to="." method="_on_add_file_pressed"]

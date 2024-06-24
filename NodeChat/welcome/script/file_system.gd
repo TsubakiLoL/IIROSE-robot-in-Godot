@@ -18,7 +18,11 @@ func _ready() -> void:
 				var new_single=single.instantiate() as SingleFile
 				add_single(new_single)
 				new_single.root_path=i[0]
-				new_single.data_path=i[1]
+				if i[1]!=null:
+					new_single.data_path=i[1]
+				else:
+					new_single.data_path=""
+				
 				
 		f.close()
 func add_single(ins:SingleFile):
@@ -93,3 +97,27 @@ func add_new_file(path:String):
 	pass
 func edit_file_request(path:String):
 	edit_file.emit(path)
+
+
+func _on_refresh_file_pressed() -> void:
+	for i in $ScrollContainer/VBoxContainer.get_children():
+		i.queue_free()
+	var f=FileAccess.open(file_messege,FileAccess.READ)
+	if f==null:
+		f=FileAccess.open(file_messege,FileAccess.WRITE)
+		f.store_string("[]")
+		f.close()
+	else:
+		var str=f.get_as_text()
+		print(str)
+		var js=JSON.parse_string(str)
+		if js is Array:
+			var file_array=js
+			for i in file_array:
+				var new_single=single.instantiate() as SingleFile
+				add_single(new_single)
+				new_single.root_path=i[0]
+				new_single.data_path=i[1]
+				
+		f.close()
+	pass # Replace with function body.

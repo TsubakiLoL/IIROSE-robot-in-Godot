@@ -25,6 +25,7 @@ IIROSE="*res://autoload/iirose/tscn/iirose.tscn"
 NodeChatGlobalNum="*res://NodeChat/AutoLoad/node_chat_global_num.tscn"
 ChatGPT="*res://autoload/GPT/tscn/chat_gpt.tscn"
 Toast="*res://autoload/toast/tscn/toast_root.tscn"
+GlobalConfig="*res://autoload/GlobalConfig/tscn/global_config.tscn"
 
 [display]
 
