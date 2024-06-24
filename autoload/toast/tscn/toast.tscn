@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://35qxfxq6dnpk"]
+
+[ext_resource type="Script" path="res://autoload/toast/script/toast.gd" id="1_53rag"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1eytc"]
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_i4wv3"]
+font_size = 30
+
+[node name="toast" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1eytc")
+script = ExtResource("1_53rag")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+text = "这是一条通知"
+label_settings = SubResource("LabelSettings_i4wv3")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
