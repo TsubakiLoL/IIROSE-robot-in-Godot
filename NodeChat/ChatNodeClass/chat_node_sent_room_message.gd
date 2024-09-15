@@ -9,6 +9,6 @@ func _init(root:NodeRoot) -> void:
 
 func process_input(id:String):
 	if input_port_data[0] is String:
-		IIROSE.sent_room_message(input_port_data[0])
+		MessageSender.sent_message("iirose_room",{"mes":input_port_data[0]})
 
 

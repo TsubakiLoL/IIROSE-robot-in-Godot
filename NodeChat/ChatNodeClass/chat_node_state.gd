@@ -36,8 +36,11 @@ func process_input(id:String):
 	pass
 	
 
-	
-	
+##收到消息
+func prompt_message(id:String,triger_type:ChatNodeTriger.triger_type,mes:Dictionary):
+	sent_data_to_out([triger_type,mes],0,id)
+	VLR(id)
+
 	
 
 func bullet_message(mes:Dictionary):

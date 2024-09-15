@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cntqtl0cv4cvy"]
+
+[ext_resource type="Script" path="res://NodeChat/AutoLoad/MessageSender.gd" id="1_yulmn"]
+
+[node name="MessageSender" type="Node"]
+script = ExtResource("1_yulmn")

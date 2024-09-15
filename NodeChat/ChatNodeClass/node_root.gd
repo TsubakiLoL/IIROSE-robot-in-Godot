@@ -11,7 +11,7 @@ var user_data_dic:Dictionary={}
 var init_state:ChatNodeState
 ##当用户长时间没进行交互时，删除用户实例需要经过的时间（s）
 var time_to_delete_instance:float=30
-##每次遍历字典判定的间隔时间，用于节省性能
+##每次遍历字典判定过期的间隔时间，用于节省性能
 var judge_time:float=2
 ##节点命名计数器
 var ind=0
@@ -154,6 +154,13 @@ func delete():
 	for i in node_list:
 		i.delete()
 	call_deferred("free")
+##收到消息
+func prompt_message(id:String,triger_type:ChatNodeTriger.triger_type,mes:Dictionary):
+	if not id in user_instance_array:
+		add_user_instance(id)
+	var now_state:ChatNodeState=user_instance_array[id][0]
+	now_state.prompt_message(id,triger_type,mes)
+	
 
 ##收到房间信息时调用
 func room_message(arr:Array):

@@ -1,0 +1,148 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1ygjrriksm5v"]
+
+[ext_resource type="Script" path="res://NodeChat/message_debug_driver/script/debug_window.gd" id="1_pe2xn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0qxsp"]
+font_size = 42
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eha4w"]
+bg_color = Color(0.278431, 0.6, 0.6, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_elc7i"]
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_14fsw"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 5
+
+[node name="DebugWindow" type="Window"]
+position = Vector2i(0, 36)
+size = Vector2i(1152, 648)
+script = ExtResource("1_pe2xn")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "调试"
+label_settings = SubResource("LabelSettings_0qxsp")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+
+[node name="side_btn_add_pos" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="add_side_btn" type="Button" parent="Control/VBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(54.49, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "+"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eha4w")
+
+[node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.65
+theme_override_styles/panel = SubResource("StyleBoxFlat_elc7i")
+
+[node name="add_new_side_win" type="PopupPanel" parent="."]
+title = "设置下载路径"
+initial_position = 3
+size = Vector2i(1000, 100)
+current_screen = 0
+visible = true
+theme_override_styles/panel = SubResource("StyleBoxFlat_14fsw")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="add_new_side_win"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 990.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="add_id" type="LineEdit" parent="add_new_side_win/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+placeholder_text = "请输入添加的用户ID"
+
+[node name="triger_type_option_btn" type="OptionButton" parent="add_new_side_win/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="accept" type="Button" parent="add_new_side_win/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "添加"
+
+[node name="refuse" type="Button" parent="add_new_side_win/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "取消"
+
+[connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="Control/VBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/add_side_btn" to="." method="_on_add_side_btn_pressed"]
+[connection signal="pressed" from="add_new_side_win/HBoxContainer/accept" to="." method="_on_accept_pressed"]
+[connection signal="pressed" from="add_new_side_win/HBoxContainer/refuse" to="." method="_on_refuse_pressed"]
