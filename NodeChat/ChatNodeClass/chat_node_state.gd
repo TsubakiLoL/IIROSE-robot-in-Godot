@@ -64,6 +64,7 @@ func enter_state(id:String):
 
 func exit_state(id:String):
 	sent_data_to_out([triger_type.TYPE_EXIT,{}],0,id)
+
 ##循环代替递归调用
 func VLR(id:String):
 	var stack:Array[ChatNode]=[]
@@ -89,7 +90,7 @@ func VLR(id:String):
 				stack.append(now_next[0])
 				stack_index.append(0)
 				stack_data.append(now_node.output_port_data)
-				now_node.is_out_ready=false
+			now_node.is_out_ready=false
 		print("出栈",ChatNodeGraph.node_name[stack.back().type])
 		stack.pop_back()
 		stack_index.pop_back()

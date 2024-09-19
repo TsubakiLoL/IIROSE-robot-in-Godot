@@ -15,6 +15,7 @@ var now_run_root:NodeRoot
 @onready var login: PopupPanel = $login
 @onready var mes_window: PopupPanel = $message
 @onready var debug_mes: PopupPanel = $debug
+@onready var debug_window: Window = $DebugWindow
 
 
 ##当前打开的文件路径
@@ -270,7 +271,14 @@ func debug_message(txt:String):
 
 
 func _on_debug_pressed() -> void:
-	debug_mes.show()
+	#debug_mes.show()
+	var str=Serializater.stringfy_state_root_new(root)
+	print("调试序列化成功：")
+	print(str)
+	var res=Serializater.parse_string_new(str)
+	if res!=null:
+		debug_window.root_instance=res
+		debug_window.popup()
 	pass # Replace with function body.
 
 

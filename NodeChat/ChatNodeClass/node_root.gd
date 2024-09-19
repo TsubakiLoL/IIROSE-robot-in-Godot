@@ -154,13 +154,132 @@ func delete():
 	for i in node_list:
 		i.delete()
 	call_deferred("free")
+###收到消息
+#func prompt_message(id:String,triger_type:ChatNodeTriger.triger_type,mes:Dictionary):
+	#sent_data_to_out([triger_type,mes],0,id)
+	#VLR(id)
+var prompt_list:Array=[]
 ##收到消息
 func prompt_message(id:String,triger_type:ChatNodeTriger.triger_type,mes:Dictionary):
+	prompt_list.append({
+		"id":id,
+		"triger_type":triger_type,
+		"mes":mes
+		})
 	if not id in user_instance_array:
 		add_user_instance(id)
 	var now_state:ChatNodeState=user_instance_array[id][0]
-	now_state.prompt_message(id,triger_type,mes)
+	#now_state.prompt_message(id,triger_type,mes)
+	now_state.sent_data_to_out([triger_type,mes],0,id)
+	VLR(id,now_state)
+func prompt_message_debug(id:String,triger_type:ChatNodeTriger.triger_type,mes:Dictionary):
+	debug_cache.append({
+		"id":id,
+		"triger_type":triger_type,
+		"mes":mes,
+		"frame":[]
+	})
+	if not id in user_instance_array:
+		add_user_instance(id)
+	var now_state:ChatNodeState=user_instance_array[id][0]
+	#now_state.prompt_message(id,triger_type,mes)
+	now_state.sent_data_to_out([triger_type,mes],0,id)
+	VLR_debug(id,now_state)
+
+signal  single_step
+var debug_cache:Array=[]
+var message_list:Array=[]
+##循环代替递归调用
+func VLR(id:String,from_node:ChatNode):
+	var stack:Array[ChatNode]=[]
+	var stack_index:Array[int]
+	var stack_data:Array=[]
+	stack.append(from_node)
+	stack_index.append(0)
+	stack_data.append(from_node.output_port_data)
+	while stack.size()!=0:
+		print("VLR循环")
+		while stack_index[stack_index.size()-1]<stack[stack.size()-1].next_node_array.size():
+			print("内层循环")
+			var now_next=stack[stack.size()-1].next_node_array[stack_index[stack_index.size()-1]]
+			var now_node:ChatNode=now_next[0]
+			var parent_node:ChatNode=stack.back()
+			var parent_index:int=stack_index.back()
+			var parent_data=stack_data.back()
+			now_node.act(parent_data[parent_node.next_node_array[parent_index][1]],parent_node.next_node_array[parent_index][2],id)
+			stack_index[stack_index.size()-1]+=1
+			if now_node.next_node_array.size()!=0 and( not now_node is ChatNodeState) and now_node.is_out_ready:
+				print("入栈",ChatNodeGraph.node_name[now_node.type])
+				stack.append(now_next[0])
+				stack_index.append(0)
+				stack_data.append(now_node.output_port_data)
+			now_node.is_out_ready=false
+		print("出栈",ChatNodeGraph.node_name[stack.back().type])
+		stack.pop_back()
+		stack_index.pop_back()
+		stack_data.pop_back()
+func VLR_debug(id:String,from_node:ChatNode):
 	
+	var stack:Array[ChatNode]=[]
+	var stack_index:Array[int]
+	var stack_data:Array=[]
+	stack.append(from_node)
+	stack_index.append(0)
+	stack_data.append(from_node.output_port_data)
+	var frame_data:Dictionary={
+		"id":from_node.id,
+		"type":from_node.type,
+		"input_data_type":[],
+		"input_data_arr":[],
+		"output_data_type":from_node.output_port_array.duplicate(),
+		"output_data_arr":from_node.output_port_data.duplicate()
+	}
+	debug_cache[debug_cache.size()-1]["frame"].append(frame_data)
+	
+	while stack.size()!=0:
+		print("VLR循环")
+		while stack_index[stack_index.size()-1]<stack[stack.size()-1].next_node_array.size():
+			print("内层循环")
+			var now_next=stack[stack.size()-1].next_node_array[stack_index[stack_index.size()-1]]
+			var now_node:ChatNode=now_next[0]
+			var parent_node:ChatNode=stack.back()
+			var parent_index:int=stack_index.back()
+			var parent_data=stack_data.back()
+			
+	
+			
+			now_node.act(parent_data[parent_node.next_node_array[parent_index][1]],parent_node.next_node_array[parent_index][2],id)
+			stack_index[stack_index.size()-1]+=1
+			
+			#if now_node.next_node_array.size()!=0 and( not now_node is ChatNodeState) and now_node.is_out_ready:
+				#print("入栈",ChatNodeGraph.node_name[now_node.type])
+				#stack.append(now_next[0])
+				#stack_index.append(0)
+				#stack_data.append(now_node.output_port_data)
+			#now_node.is_out_ready=false
+			if ( not now_node is ChatNodeState) and now_node.is_out_ready:
+				
+				var frame_data_n:Dictionary={
+					"id":now_node.id,
+					"type":now_node.type,
+					"input_data_type":now_node.input_port_array.duplicate(),
+					"input_data_arr":now_node.input_port_data.duplicate(),
+					"output_data_type":now_node.output_port_array.duplicate(),
+					"output_data_arr":now_node.output_port_data.duplicate()
+				}
+				debug_cache[debug_cache.size()-1]["frame"].append(frame_data_n)
+				
+				now_node.is_out_ready=false
+				if now_node.next_node_array.size()!=0:
+					print("入栈",ChatNodeGraph.node_name[now_node.type])
+					stack.append(now_next[0])
+					stack_index.append(0)
+					stack_data.append(now_node.output_port_data)
+		print("出栈",ChatNodeGraph.node_name[stack.back().type])
+		stack.pop_back()
+		stack_index.pop_back()
+		stack_data.pop_back()
+
 
 ##收到房间信息时调用
 func room_message(arr:Array):

@@ -28,12 +28,12 @@ var config_file:String="user://config.txt"
 var port:int=7890
 @onready var mes_win: DrawerContainer = $DrawerContainer
 func _ready() -> void:
-	OS.shell_open(ProjectSettings.globalize_path(download_path))
+	#OS.shell_open(ProjectSettings.globalize_path(download_path))
 	change_download_file_panel.popup_window=false
 	download_path=read_download_path()
 	peer.connect_to_host("8.219.243.185",7890)
 	await get_tree().create_timer(0.5).timeout
-	OS.shell_open(ProjectSettings.globalize_path(download_path))
+	#OS.shell_open(ProjectSettings.globalize_path(download_path))
 	refresh()
 func refresh():
 

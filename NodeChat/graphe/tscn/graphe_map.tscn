@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bsu5rhajkv0gn"]
+[gd_scene load_steps=9 format=3 uid="uid://bsu5rhajkv0gn"]
 
 [ext_resource type="Script" path="res://NodeChat/graphe/script/graphe_map.gd" id="1_upfwo"]
 [ext_resource type="PackedScene" uid="uid://6833284xwo4p" path="res://NodeChat/graphe/tscn/graph.tscn" id="2_q4deu"]
 [ext_resource type="PackedScene" uid="uid://b258smdmrfieh" path="res://NodeChat/graphe/tscn/node_select_pop.tscn" id="2_s8qs1"]
 [ext_resource type="PackedScene" uid="uid://c0cdcos0cxgfu" path="res://autoload/iirose/demo/login.tscn" id="3_o12v6"]
 [ext_resource type="PackedScene" uid="uid://dnv0vhp5xfvvy" path="res://autoload/iirose/demo/message_sent.tscn" id="4_5aw54"]
+[ext_resource type="PackedScene" uid="uid://b1ygjrriksm5v" path="res://NodeChat/message_debug_driver/tscn/debug_window.tscn" id="6_p231i"]
 
 [sub_resource type="Gradient" id="Gradient_qragy"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -143,6 +144,9 @@ offset_bottom = 596.0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="DebugWindow" parent="." instance=ExtResource("6_p231i")]
+visible = false
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/doc" to="." method="_on_doc_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/debug" to="." method="_on_debug_pressed"]
