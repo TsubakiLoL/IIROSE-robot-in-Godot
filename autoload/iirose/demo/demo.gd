@@ -53,7 +53,7 @@ func write_white_array():
 	pass
 
 func add_white_array(new:String)->bool:
-	print("加入白名单："+new)
+	#print("加入白名单："+new)
 	if new not in white_array:
 		white_array.append(new)
 		write_white_array()

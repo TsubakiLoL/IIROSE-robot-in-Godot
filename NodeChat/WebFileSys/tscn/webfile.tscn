@@ -181,27 +181,23 @@ grow_vertical = 2
 [node name="n_name" type="Label" parent="DrawerContainer/Panel/MarginContainer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "名字"
 label_settings = SubResource("LabelSettings_4sg7q")
 vertical_alignment = 1
 
 [node name="n_id" type="Label" parent="DrawerContainer/Panel/MarginContainer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "id
+text = "
 "
 label_settings = SubResource("LabelSettings_4sg7q")
 vertical_alignment = 1
 
 [node name="n_editor" type="Label" parent="DrawerContainer/Panel/MarginContainer/Control/VBoxContainer"]
 layout_mode = 2
-text = "作者"
 label_settings = SubResource("LabelSettings_d6xmu")
 
 [node name="Label" type="Label" parent="DrawerContainer/Panel/MarginContainer/Control/VBoxContainer"]
 layout_mode = 2
-text = "介绍：
-"
 label_settings = SubResource("LabelSettings_uvjxp")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="DrawerContainer/Panel/MarginContainer/Control/VBoxContainer"]
@@ -220,27 +216,6 @@ size_flags_vertical = 3
 [node name="n_intro" type="Label" parent="DrawerContainer/Panel/MarginContainer/Control/VBoxContainer/ScrollContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-text = "111111111111111111111111111111111111112222222222222222
-sdadwadaadadssdsdsdadad
-
-
-sdsadsdsdsa
-
-
-
-
-
-
-
-
-
-
-
-
-
-sdadsadxsa
-
-sdsds"
 label_settings = SubResource("LabelSettings_jup0l")
 
 [node name="upload_panel" type="Container" parent="."]

@@ -202,9 +202,7 @@ func VLR(id:String,from_node:ChatNode):
 	stack_index.append(0)
 	stack_data.append(from_node.output_port_data)
 	while stack.size()!=0:
-		print("VLR循环")
 		while stack_index[stack_index.size()-1]<stack[stack.size()-1].next_node_array.size():
-			print("内层循环")
 			var now_next=stack[stack.size()-1].next_node_array[stack_index[stack_index.size()-1]]
 			var now_node:ChatNode=now_next[0]
 			var parent_node:ChatNode=stack.back()
@@ -213,12 +211,10 @@ func VLR(id:String,from_node:ChatNode):
 			now_node.act(parent_data[parent_node.next_node_array[parent_index][1]],parent_node.next_node_array[parent_index][2],id)
 			stack_index[stack_index.size()-1]+=1
 			if now_node.next_node_array.size()!=0 and( not now_node is ChatNodeState) and now_node.is_out_ready:
-				print("入栈",ChatNodeGraph.node_name[now_node.type])
 				stack.append(now_next[0])
 				stack_index.append(0)
 				stack_data.append(now_node.output_port_data)
 			now_node.is_out_ready=false
-		print("出栈",ChatNodeGraph.node_name[stack.back().type])
 		stack.pop_back()
 		stack_index.pop_back()
 		stack_data.pop_back()
@@ -241,9 +237,7 @@ func VLR_debug(id:String,from_node:ChatNode):
 	debug_cache[debug_cache.size()-1]["frame"].append(frame_data)
 	
 	while stack.size()!=0:
-		print("VLR循环")
 		while stack_index[stack_index.size()-1]<stack[stack.size()-1].next_node_array.size():
-			print("内层循环")
 			var now_next=stack[stack.size()-1].next_node_array[stack_index[stack_index.size()-1]]
 			var now_node:ChatNode=now_next[0]
 			var parent_node:ChatNode=stack.back()
@@ -275,52 +269,18 @@ func VLR_debug(id:String,from_node:ChatNode):
 				
 				now_node.is_out_ready=false
 				if now_node.next_node_array.size()!=0:
-					print("入栈",ChatNodeGraph.node_name[now_node.type])
 					stack.append(now_next[0])
 					stack_index.append(0)
 					stack_data.append(now_node.output_port_data)
-		print("出栈",ChatNodeGraph.node_name[stack.back().type])
 		stack.pop_back()
 		stack_index.pop_back()
 		stack_data.pop_back()
 
 
-##收到房间信息时调用
-func room_message(arr:Array):
-	for i in arr:
-		if i["name"]!=IIROSE.get_self_name():
-			print("state_root 收到消息")
-			print(str(i))
-			if not i["uid"] in user_instance_array:
-				add_user_instance(i["uid"])
-			var now_state:ChatNodeState=user_instance_array[i["uid"]][0]
-			now_state.room_message(i)
-				
-	pass
-##收到弹幕消息时调用
-func bullet_message(arr:Array):
-	for i in arr:
-		if i["name"]!=IIROSE.get_self_name():
-			print("state_root 收到消息")
-			print(str(i))
-			if not i["uid"] in user_instance_array:
-				add_user_instance(i["uid"])
-			var now_state:ChatNodeState=user_instance_array[i["uid"]][0]
-			now_state.bullet_message(i)
 
 
 
 
-##收到私聊消息时调用
-func side_message(arr:Array):
-	for i in arr:
-		if i["name"]!=IIROSE.get_self_name():
-			print("state_root 收到消息")
-			print(str(i))
-			if not i["uid"] in user_instance_array:
-				add_user_instance(i["uid"])
-			var now_state:ChatNodeState=user_instance_array[i["uid"]][0]
-			now_state.side_message(i)
 ##启动此根节点
 func start():
 	#IIROSE.room_message_received.connect(room_message)

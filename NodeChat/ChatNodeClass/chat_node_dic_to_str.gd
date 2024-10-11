@@ -14,7 +14,7 @@ func _init(root:NodeRoot) -> void:
 	init_input()
 
 func process_input(id:String)->bool:
-	print(variable_name)
+	#print(variable_name)
 	if input_port_data[0] is Dictionary:
 		if input_port_data[0].has(variable_name):
 			sent_data_to_out(true,0,id)
@@ -34,8 +34,8 @@ func load_from_data(data:Dictionary):
 	if data.has("variable_name"):
 		var new_mes=data["variable_name"]
 		variable_name=new_mes
-		print(new_mes)
+		#print(new_mes)
 func export_data(data:Dictionary):
 	super.export_data(data)
-	print("当前字典键",variable_name)
+	#print("当前字典键",variable_name)
 	data["variable_name"]=variable_name

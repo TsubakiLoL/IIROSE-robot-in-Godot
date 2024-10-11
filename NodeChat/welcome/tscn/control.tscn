@@ -157,7 +157,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_71rxn")
 theme_override_styles/normal = SubResource("StyleBoxFlat_k4bsg")
 text = "文档"
 
-[node name="Button4" type="Button" parent="Control/select/VBoxContainer"]
+[node name="editor" type="Button" parent="Control/select/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 0
@@ -171,7 +171,12 @@ text = "链接到插件服务器"
 
 [node name="online_num" type="Label" parent="Control/select/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
+
+[node name="print_debug" type="CheckBox" parent="Control/select/VBoxContainer"]
+layout_mode = 2
+text = "打印调试信息"
 
 [node name="name" type="Control" parent="Control"]
 layout_mode = 1
@@ -195,7 +200,6 @@ text = "NodeChat"
 label_settings = SubResource("LabelSettings_muesx")
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
 
 [node name="Control2" type="Control" parent="."]
 layout_mode = 1
@@ -223,22 +227,28 @@ tabs_visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
+[node name="TextureRect" type="TextureRect" parent="Control2/TabContainer/welcome"]
+modulate = Color(0.407843, 0.407843, 0.407843, 1)
+clip_contents = true
+layout_mode = 2
+anchor_top = 0.00462963
+anchor_right = 1.0
+anchor_bottom = 1.72377
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 2
+texture = ExtResource("2_mldix")
+expand_mode = 1
+stretch_mode = 6
+metadata/_edit_use_anchors_ = true
+
 [node name="back" type="VBoxContainer" parent="Control2/TabContainer/welcome"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 915.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="Control2/TabContainer/welcome/back"]
-modulate = Color(0.407843, 0.407843, 0.407843, 1)
-layout_mode = 2
-size_flags_vertical = 2
-texture = ExtResource("2_mldix")
-expand_mode = 5
-stretch_mode = 6
 
 [node name="MarginContainer" type="MarginContainer" parent="Control2/TabContainer/welcome"]
 layout_mode = 1
@@ -667,8 +677,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_right = 296.0
+offset_bottom = 496.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -686,7 +696,9 @@ visible = false
 [connection signal="pressed" from="Control/select/VBoxContainer/iirose" to="." method="_on_iirose_pressed"]
 [connection signal="pressed" from="Control/select/VBoxContainer/gpt" to="." method="_on_gpt_pressed"]
 [connection signal="pressed" from="Control/select/VBoxContainer/doc" to="." method="_on_doc_pressed"]
+[connection signal="pressed" from="Control/select/VBoxContainer/editor" to="." method="_on_editor_pressed"]
 [connection signal="toggled" from="Control/select/VBoxContainer/online" to="." method="_on_online_toggled"]
+[connection signal="toggled" from="Control/select/VBoxContainer/print_debug" to="." method="_on_print_debug_toggled"]
 [connection signal="edit_file" from="Control2/TabContainer/file/MarginContainer/Control/Control" to="." method="_on_control_edit_file"]
 [connection signal="pressed" from="Control2/TabContainer/iirose/MarginContainer/Control/flag" to="." method="_on_flag_pressed"]
 [connection signal="pressed" from="Control2/TabContainer/iirose/MarginContainer/Control/login" to="." method="_on_login_pressed"]

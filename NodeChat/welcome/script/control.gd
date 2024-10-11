@@ -110,7 +110,18 @@ func _on_online_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		%plugin.show()
 		%Webfile.is_connect_to_server=true
+		%online_num.show()
 	else:
 		%plugin.hide()
 		%Webfile.is_connect_to_server=false
+	pass # Replace with function body.
+
+
+func _on_editor_pressed() -> void:
+	OS.shell_open("https://qm.qq.com/q/YYQsyr0zao")
+	pass # Replace with function body.
+
+
+func _on_print_debug_toggled(toggled_on: bool) -> void:
+	IIROSE.need_debug_message=toggled_on
 	pass # Replace with function body.

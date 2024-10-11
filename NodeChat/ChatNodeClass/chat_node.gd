@@ -57,7 +57,7 @@ func init_input():
 		output_port_data.append(false)
 ##执行当前端口的输入逻辑
 func act(input,to_port:int,id:String):
-	print("节点类型：",ChatNodeGraph.node_name[type]," ID:",self.id," 端口:",to_port,"收到输入",input)
+	#print("节点类型：",ChatNodeGraph.node_name[type]," ID:",self.id," 端口:",to_port,"收到输入",input)
 	if to_port<input_port_array.size():
 		input_port_data[to_port]=input
 		input_port_ready[to_port]=true
@@ -116,19 +116,19 @@ func connect_with_next_node(to_node:ChatNode,from_port:int,to_port:int)->bool:
 		if output_port_array[from_port]==to_node.input_port_array[to_port]:
 			for i in next_node_array:
 				if i[0]==to_node and i[1]==from_port and i[2]==to_port:
-					print("已经存在链接")
+					#print("已经存在链接")
 					return false
 			var new_connect_message=[to_node,from_port,to_port]
 			next_node_array.append(new_connect_message)
 			to_node.connect_with_from_node(self,from_port,to_port)
 			return true
 		else:
-			print("类型不兼容")
-			print("当前节点类型：",ChatNodeGraph.node_name[type],"输出类型:",output_port_array[from_port])
-			print("下级节点类型： ",ChatNodeGraph.node_name[to_node.type]," 输入类型：",to_node.input_port_array[to_port])
+			#print("类型不兼容")
+			#print("当前节点类型：",ChatNodeGraph.node_name[type],"输出类型:",output_port_array[from_port])
+			#print("下级节点类型： ",ChatNodeGraph.node_name[to_node.type]," 输入类型：",to_node.input_port_array[to_port])
 			return false
 	else:
-		print("超出端口数量")
+		#print("超出端口数量")
 		return false
 		
 	pass
@@ -144,17 +144,17 @@ func disconnect_with_next_node(to_node:ChatNode,from_port:int,to_port:int)->bool
 			if next_node_array[i][0]==to_node and next_node_array[i][1]==from_port and next_node_array[i][2]==to_port:
 				ind=i
 		if ind!=-1:
-			print("断开成功")
+			#print("断开成功")
 			to_node.disconnect_with_from_node(self,from_port,to_port)
 			next_node_array.pop_at(ind)
 			return true
 			pass
 		else:
-			print("不存在链接")
+			#print("不存在链接")
 			to_node.disconnect_with_from_node(self,from_port,to_port)
 			return false
 	else:
-		print("不在端口范围内")
+		#print("不在端口范围内")
 		return false
 ##与上级节点断开链接		
 func disconnect_with_from_node(from_node:ChatNode,from_port:int,to_port:int)->bool:

@@ -44,7 +44,7 @@ func save_file_selected(status:bool,selected_paths:PackedStringArray,selected_fi
 		save_state_root(selected_paths[0])
 	pass
 func save_state_root(file_path:String):
-	print(file_path)
+	#print(file_path)
 	
 	var new_file=file_path
 	if not file_path.ends_with(".nodeset"):
@@ -98,7 +98,7 @@ func _on_graph_edit_connection_request(from_node: StringName, from_port: int, to
 	var to:ChatNodeGraph=graph.get_node(str(to_node)) as ChatNodeGraph
 	var from_real:ChatNode=from.get_real()
 	var to_real:ChatNode=to.get_real()
-	print("开始链接")
+	#print("开始链接")
 	if from_real.connect_with_next_node(to_real,from_port,to_port):
 		graph.connect_node(from_node,from_port,to_node,to_port)
 
@@ -135,7 +135,7 @@ func _on_graph_edit_delete_nodes_request(nodes: Array[StringName]) -> void:
 	file_changed=true
 	for i in nodes:
 		for j in graph.get_connection_list():
-			print(j)
+			#print(j)
 			if j["to_node"]==i:
 				graph.disconnect_node(j["from_node"],j["from_port"],j["to_node"],j["to_port"])
 			elif j["from_node"]==i:
@@ -167,6 +167,7 @@ func nodeset_pressed(id:int):
 		3:
 			if root!=null:
 				root.delete()
+			%DebugWindow._on_close_requested()
 			queue_free()
 			pass
 	pass
@@ -193,11 +194,11 @@ func save_as_other_file_selected(status:bool,selected_paths:PackedStringArray,se
 
 func debug():
 	var str=Serializater.stringfy_state_root_new(root)
-	print("调试序列化成功：")
-	print(str)
+	#print("调试序列化成功：")
+	#print(str)
 	var res=Serializater.parse_string_new(str)
 	if res!=null:
-		print("从序列化中构建新的节点实例成功！")
+		#print("从序列化中构建新的节点实例成功！")
 		#if now_run_root!=null:
 			#now_run_root.end()
 			#now_run_root.delete_self()
@@ -269,8 +270,8 @@ func debug_message(txt:String):
 func _on_debug_pressed() -> void:
 	#debug_mes.show()
 	var str=Serializater.stringfy_state_root_new(root)
-	print("调试序列化成功：")
-	print(str)
+	#print("调试序列化成功：")
+	#print(str)
 	var res=Serializater.parse_string_new(str)
 	if res!=null:
 		debug_window.create_from_instance(res)

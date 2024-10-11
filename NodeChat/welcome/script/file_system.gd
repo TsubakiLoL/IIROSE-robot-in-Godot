@@ -10,7 +10,7 @@ func _ready() -> void:
 		f.close()
 	else:
 		var str=f.get_as_text()
-		print(str)
+		#print(str)
 		var js=JSON.parse_string(str)
 		if js is Array:
 			var file_array=js
@@ -31,16 +31,16 @@ func add_single(ins:SingleFile):
 	ins.edit_file_request.connect(edit_file_request)
 	ins.changed.connect(save)
 func save():
-	print("save")
+	#print("save")
 	var new_array:Array=[]
 	for i in $ScrollContainer/VBoxContainer.get_children():
 		if i is SingleFile:
 			new_array.append([i.root_path,i.data_path])
 	var js=JSON.stringify(new_array)
-	print(new_array)
+	#print(new_array)
 	var f=FileAccess.open(file_messege,FileAccess.WRITE)
 	if f !=null:
-		print("f不为null")
+		#print("f不为null")
 		f.store_string(js)
 		f.close()
 func delete_request(s:SingleFile):
@@ -64,7 +64,7 @@ func load_new_node(path:String):
 
 
 func _on_load_file_pressed() -> void:
-	DisplayServer.file_dialog_show("选择节点集文件"," "," ",false,DisplayServer.FILE_DIALOG_MODE_OPEN_FILE,PackedStringArray(["*.nodeset"]),load_file_selected)
+	DisplayServer.file_dialog_show("选择节点集文件","","",false,DisplayServer.FILE_DIALOG_MODE_OPEN_FILE,PackedStringArray(["*.nodeset"]),load_file_selected)
 	pass # Replace with function body.
 func load_file_selected(status:bool,selected_paths:PackedStringArray,selected_filter_index:int):
 	if status:
@@ -80,7 +80,7 @@ func load_file_selected(status:bool,selected_paths:PackedStringArray,selected_fi
 		#
 
 func _on_add_file_pressed() -> void:
-	DisplayServer.file_dialog_show("选择节点集文件"," "," ",false,DisplayServer.FILE_DIALOG_MODE_SAVE_FILE,PackedStringArray(["*.nodeset"]),add_file_selected)
+	DisplayServer.file_dialog_show("保存节点集文件为","","",false,DisplayServer.FILE_DIALOG_MODE_SAVE_FILE,PackedStringArray(["*.nodeset"]),add_file_selected)
 	pass # Replace with function body.
 func add_file_selected(status:bool,selected_paths:PackedStringArray,selected_filter_index:int):
 	if status:
@@ -109,7 +109,7 @@ func _on_refresh_file_pressed() -> void:
 		f.close()
 	else:
 		var str=f.get_as_text()
-		print(str)
+		#print(str)
 		var js=JSON.parse_string(str)
 		if js is Array:
 			var file_array=js

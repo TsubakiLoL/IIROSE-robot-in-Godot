@@ -49,7 +49,6 @@ func process_input(id:String)->bool:
 	var data=input_port_data[0]
 	if data is Array and data.size()==2:
 		var t=data[0]
-		print("消息类型",t,"触发器类型",triget_t)
 		if t==triget_t and data[1] is Dictionary:
 			sent_data_to_out(data[1],0,id)
 			return true
@@ -59,12 +58,10 @@ func process_input(id:String)->bool:
 func load_from_data(data:Dictionary):
 	super.load_from_data(data)
 	if data.has("triger_t"):
-		print("加载触发器类型")
 		var new_triger_t=data["triger_t"]
-		print(new_triger_t)
+		#print(new_triger_t)
 		if int(new_triger_t) in triger_type.values():
 			triget_t=int(new_triger_t)
-			print("加载成功")
 func export_data(data:Dictionary):
 	super.export_data(data)
 	data["triger_t"]=triget_t

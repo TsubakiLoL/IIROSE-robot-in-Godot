@@ -11,11 +11,11 @@ enum triger_type{
 var is_init:bool=false:
 	set(val):
 		if not is_init and val:
-			print("设置状态：",val)
+			#print("设置状态：",val)
 			root.set_init_state(self)
 			is_init=val
 		if is_init and not val:
-			print("设置状态：",val)
+			#print("设置状态：",val)
 			is_init=val
 func _init(root:NodeRoot) -> void:
 	super._init(root)
@@ -49,7 +49,7 @@ func bullet_message(mes:Dictionary):
 func room_message(mes:Dictionary):
 	print("状态收到房间消息",mes)
 	if mes.has("uid"):
-		print("存在uid")
+		#print("存在uid")
 		sent_data_to_out([triger_type.TYPE_ROOM,mes],0,mes["uid"])
 		VLR(mes["uid"])
 func side_message(mes:Dictionary):

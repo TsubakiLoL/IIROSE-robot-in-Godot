@@ -55,11 +55,11 @@ func load_from_data(data:Dictionary):
 		var new_mes=data["mes"]
 		mes=new_mes
 	if data.has("c_type"):
-		print("加载比较器类型")
+		#print("加载比较器类型")
 		var new_c_type=data["c_type"]
 		if int(new_c_type) in compare_type.values():
 			c_type=int(new_c_type)
-			print("加载成功")
+			#print("加载成功")
 func export_data(data:Dictionary):
 	super.export_data(data)
 	data["mes"]=mes

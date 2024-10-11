@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	var res=body.get_string_from_utf8()
-	print(res)
+	#print(res)
 	var dic=JSON.parse_string(res)
 	if dic is Dictionary:
 		if dic.has("done") and dic["done"] is bool and dic["done"] and dic.has("response") and dic["response"] is String:

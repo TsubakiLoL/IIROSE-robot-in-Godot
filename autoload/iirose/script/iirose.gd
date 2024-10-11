@@ -31,6 +31,8 @@ signal side_message_received(arr:Array)
 signal bullet_message_received(arr:Array)
 signal stock_update
 signal debug_message(tex:String)
+#是否需要打印debug信息
+var need_debug_message:bool=false
 func re_init_export():
 	inpackeg["p"]=inpackeg["p"].md5_text()
 	inpackeg["fp"]="@"+str(randf()).md5_text()
@@ -51,19 +53,23 @@ func start_connect():
 	last_state = WebSocketPeer.STATE_CLOSED
 	is_login=false
 	ws.connect_to_url("wss://m1.iirose.com:8778",TLSOptions.client())
-	print("》》》》正在链接到蔷薇世界")
-	debug_message.emit("》》》》正在链接到蔷薇世界")
+	if need_debug_message:
+		print("》》》》正在链接到蔷薇世界")
+		debug_message.emit("》》》》正在链接到蔷薇世界")
 func send_in_pack():
-	print("》》》》正在向蔷薇发送登陆包")
-	debug_message.emit("》》》》正在向蔷薇发送登陆包")
+	if need_debug_message:
+		print("》》》》正在向蔷薇发送登陆包")
+		debug_message.emit("》》》》正在向蔷薇发送登陆包")
 	if ws.get_ready_state()==WebSocketPeer.STATE_OPEN:
 		var str=("*"+JSON.stringify(inpackeg)).to_utf8_buffer()
 		ws.send(str)
-		print_rich("[color=green]》》》》登陆包发送成功[/color]")
-		debug_message.emit("[color=green]》》》》登陆包发送成功[/color]")
+		if need_debug_message:
+			print_rich("[color=green]》》》》登陆包发送成功[/color]")
+			debug_message.emit("[color=green]》》》》登陆包发送成功[/color]")
 	else:
-		print_rich("[color=red]》》》》错误：还未与蔷薇建立链接或链接已断开[/color]")
-		debug_message.emit("[color=red]》》》》错误：还未与蔷薇建立链接或链接已断开[/color]")
+		if need_debug_message:
+			print_rich("[color=red]》》》》错误：还未与蔷薇建立链接或链接已断开[/color]")
+			debug_message.emit("[color=red]》》》》错误：还未与蔷薇建立链接或链接已断开[/color]")
 func _ready() -> void:
 	set_buffer_size(buffer_size)
 func _process(delta: float) -> void:
@@ -94,8 +100,9 @@ func get_string_from_packeg(pkg:PackedByteArray):
 	pass
 
 func want_stock():
-	print_rich("[color=yellow]》》》》尝试向蔷薇申请股票信息[/color]")
-	debug_message.emit("[color=yellow]》》》》尝试向蔷薇申请股票信息[/color]")
+	if need_debug_message:
+		print_rich("[color=yellow]》》》》尝试向蔷薇申请股票信息[/color]")
+		debug_message.emit("[color=yellow]》》》》尝试向蔷薇申请股票信息[/color]")
 	sent_str(">#")
 func _on_ping_timeout() -> void:
 	if ws.get_ready_state()==WebSocketPeer.STATE_OPEN:
@@ -109,8 +116,9 @@ func exe_message(txt:String):
 		match txt[3]:
 			"*":
 				if not is_login:
-					print_rich("[color=green]》》》》登录成功！[/color]")
-					debug_message.emit("[color=green]》》》》登录成功！[/color]")
+					if need_debug_message:
+						print_rich("[color=green]》》》》登录成功！[/color]")
+						debug_message.emit("[color=green]》》》》登录成功！[/color]")
 					is_login=true
 					login_success.emit()
 				var spl=txt.split("<")
@@ -121,8 +129,9 @@ func exe_message(txt:String):
 						uid_list.append(new_spl[8])
 			"s":
 				if not is_login:
-					print_rich("[color=yellow]》》》》房间错误，尝试断开与新房间重新建立链接。。。[/color]")
-					debug_message.emit("[color=yellow]》》》》房间错误，尝试断开与新房间重新建立链接。。。[/color]")
+					if need_debug_message:
+						print_rich("[color=yellow]》》》》房间错误，尝试断开与新房间重新建立链接。。。[/color]")
+						debug_message.emit("[color=yellow]》》》》房间错误，尝试断开与新房间重新建立链接。。。[/color]")
 					var new_room=txt.split(">")[0]
 					new_room=new_room.right(new_room.length()-4)
 					inpackeg["r"]=new_room
@@ -135,46 +144,60 @@ func exe_message(txt:String):
 		#%*"x(到期时间)#(原因)	账户被封禁
 		#%*"6	房间不存在
 			"0":
-				print_rich("[color=red]》》》》名字被占用，请重新登录[/color]")
-				debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
+				if need_debug_message:
+					print_rich("[color=red]》》》》名字被占用，请重新登录[/color]")
+					debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
 				is_in_logging=false
+				Toast.popup("名字被占用，请重新登录")
 				ws.close()
 				ws=null
 				pass
 			"1":
-				print_rich("[color=red]》》》》用户不存在，请重新登录[/color]")
-				debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
+				if need_debug_message:
+					print_rich("[color=red]》》》》用户不存在，请重新登录[/color]")
+					debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
 				is_in_logging=false
+				Toast.popup("用户不存在，请重新登录")
 				ws.close()
 				pass
 			"2":
-				print_rich("[color=red]》》》》密码错误，请重新登录[/color]")
-				debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
+				if need_debug_message:
+					print_rich("[color=red]》》》》密码错误，请重新登录[/color]")
+					debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
 				is_in_logging=false
+				Toast.popup("密码错误")
 				ws.close()
 				pass
 			"3":
-				print_rich("[color=red]》》》》尝试登录次数达到上限[/color]")
-				debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
+				if need_debug_message:
+					print_rich("[color=red]》》》》尝试登录次数达到上限[/color]")
+					debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
 				is_in_logging=false
+				Toast.popup("登录上限")
 				ws.close()
 				pass
 			"4":
-				print_rich("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
-				debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
+				if need_debug_message:
+					print_rich("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
+					debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
 				is_in_logging=false
+				Toast.popup("房间错误")
 				ws.close()
 				pass
 			"5":
-				print_rich("[color=red]》》》》房间密码错误[/color]")
-				debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
+				if need_debug_message:
+					print_rich("[color=red]》》》》房间密码错误[/color]")
+					debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
 				is_in_logging=false
+				Toast.popup("房间密码错误")
 				ws.close()
 				pass
 			"6":
-				print_rich("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
-				debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
+				if need_debug_message:
+					print_rich("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
+					debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
 				is_in_logging=false
+				Toast.popup("房间错误")
 				ws.close()
 				pass
 		#if txt.begins_with('%*"*'):
@@ -212,8 +235,9 @@ func exe_message(txt:String):
 		var new_text=txt.right(txt.length()-1)
 		if new_text.begins_with('"'):
 			new_text=txt.right(txt.length()-1)
-			print_rich("[color=white]《《《《私聊信息：[/color]"+new_text)
-			debug_message.emit("[color=white]《《《《私聊信息：[/color]"+new_text)
+			if need_debug_message:
+				print_rich("[color=white]《《《《私聊信息：[/color]"+new_text)
+				debug_message.emit("[color=white]《《《《私聊信息：[/color]"+new_text)
 			var txt_arr=new_text.split("<")
 			var side_dic_array:Array[Dictionary]=[]
 			for i in txt_arr:
@@ -224,12 +248,14 @@ func exe_message(txt:String):
 				new_dic["head"]=spl[3]
 				new_dic["uid"]=spl[1]
 				side_dic_array.append(new_dic)
-			print_rich("[color=white]《《《《私聊信息处理结果：[/color]",side_dic_array)
-			debug_message.emit("[color=white]《《《《私聊信息处理结果：[/color]"+str(side_dic_array))
+			if need_debug_message:
+				print_rich("[color=white]《《《《私聊信息处理结果：[/color]",side_dic_array)
+				debug_message.emit("[color=white]《《《《私聊信息处理结果：[/color]"+str(side_dic_array))
 			side_message_received.emit(side_dic_array)
 		else:
-			print_rich("[color=yellow]《《《《房间信息：[/color]"+new_text)
-			debug_message.emit("[color=yellow]《《《《房间信息：[/color]"+new_text)
+			if need_debug_message:
+				print_rich("[color=yellow]《《《《房间信息：[/color]"+new_text)
+				debug_message.emit("[color=yellow]《《《《房间信息：[/color]"+new_text)
 			var txt_arr=new_text.split("<")
 			var room_dic_array:Array[Dictionary]=[]
 			for i in txt_arr:
@@ -240,13 +266,15 @@ func exe_message(txt:String):
 				new_dic["head"]=spl[1]
 				new_dic["uid"]=spl[8]
 				room_dic_array.append(new_dic)
-			print_rich("[color=yellow]《《《《房间信息处理结果：[/color]",room_dic_array)
-			debug_message.emit("[color=yellow]《《《《房间信息处理结果：[/color]"+str(room_dic_array))
+			if need_debug_message:
+				print_rich("[color=yellow]《《《《房间信息处理结果：[/color]",room_dic_array)
+				debug_message.emit("[color=yellow]《《《《房间信息处理结果：[/color]"+str(room_dic_array))
 			room_message_received.emit(room_dic_array)
 	elif txt.begins_with("="):
 		var new_text=txt.right(txt.length()-1)
-		print_rich("[color=blue]《《《《弹幕信息：[/color]"+new_text)
-		debug_message.emit("[color=blue]《《《《弹幕信息：[/color]"+new_text)
+		if need_debug_message:
+			print_rich("[color=blue]《《《《弹幕信息：[/color]"+new_text)
+			debug_message.emit("[color=blue]《《《《弹幕信息：[/color]"+new_text)
 		var txt_arr=new_text.split("<")
 		var bullet_dic_array:Array[Dictionary]=[]
 		for i in txt_arr:
@@ -258,18 +286,21 @@ func exe_message(txt:String):
 			new_dic["uid"]=spl[7]
 			bullet_dic_array.append(new_dic)
 		bullet_message_received.emit(bullet_dic_array)
-		print_rich("[color=blue]《《《《弹幕信息处理结果：[/color]",bullet_dic_array)
-		debug_message.emit("[color=blue]《《《《弹幕信息处理结果：[/color]"+str(bullet_dic_array))
+		if need_debug_message:
+			print_rich("[color=blue]《《《《弹幕信息处理结果：[/color]",bullet_dic_array)
+			debug_message.emit("[color=blue]《《《《弹幕信息处理结果：[/color]"+str(bullet_dic_array))
 	elif txt.begins_with(">"):
 		var new_text=txt.right(txt.length()-1)
-		print_rich("[color=teal]《《《《股票消息：[/color]"+new_text)
-		debug_message.emit("[color=teal]《《《《股票消息：[/color]"+new_text)
+		if need_debug_message:
+			print_rich("[color=teal]《《《《股票消息：[/color]"+new_text)
+			debug_message.emit("[color=teal]《《《《股票消息：[/color]"+new_text)
 		var spl=new_text.split('"')
 		stock_message[0]=int(spl[0])
 		stock_message[1]=float(spl[1])
 		stock_message[2]=float(spl[2])
-		print_rich("[color=teal]《《《《股票消息处理结果：[/color]",stock_message)
-		debug_message.emit("[color=teal]《《《《股票消息处理结果：[/color]"+str(stock_message))
+		if need_debug_message:
+			print_rich("[color=teal]《《《《股票消息处理结果：[/color]",stock_message)
+			debug_message.emit("[color=teal]《《《《股票消息处理结果：[/color]"+str(stock_message))
 		stock_update.emit()
 	elif txt.begins_with("m"):
 		if txt.length()==1:
@@ -281,12 +312,13 @@ func exe_message(txt:String):
 	else:
 		if txt.length()>=100:
 			if not is_login:
-				print_rich("[color=green]》》》》登录成功！[/color]")
-				debug_message.emit("[color=green]》》》》登录成功！[/color]")
+				if need_debug_message:
+					print_rich("[color=green]》》》》登录成功！[/color]")
+					debug_message.emit("[color=green]》》》》登录成功！[/color]")
 				is_login=true
 				login_success.emit()
 		else:
-			print(txt)
+			#print(txt)
 			debug_message.emit(txt)
 	pass
 func poll() -> void:
@@ -312,17 +344,19 @@ func get_message() -> PackedByteArray:
 	#print(str(pkt))
 	return pkt
 func connected():
-	print("[color=green]》》》》成功链接到蔷薇[/color]")
-	debug_message.emit("[color=green]》》》》成功链接到蔷薇[/color]")
+	if need_debug_message:
+		print("[color=green]》》》》成功链接到蔷薇[/color]")
+		debug_message.emit("[color=green]》》》》成功链接到蔷薇[/color]")
 	send_in_pack()
 func closed(res:Array):
 	if is_in_logging:
 		is_login=false
 		ws.connect_to_url("wss://m1.iirose.com:8778",TLSOptions.client())
-		print_rich("[color=red]》》》》断开链接[/color]")
-		debug_message.emit("[color=red]》》》》断开链接[/color]")
-		print(str(res))
-		print("重新链接中。。。")
+		if need_debug_message:
+			print_rich("[color=red]》》》》断开链接[/color]")
+			debug_message.emit("[color=red]》》》》断开链接[/color]")
+			print(str(res))
+			print("重新链接中。。。")
 		debug_message.emit("重新链接中。。。")
 func get_mes(pac:PackedByteArray):
 	get_string_from_packeg(pac)
@@ -334,25 +368,30 @@ func sent_popup(mes:String):
 	x["t"]=mes
 	ws.send_text("~"+JSON.stringify(x))
 func sent_tu(uid:String,mes:String=""):
-	print("》》》》尝试给用户"+uid+"点赞")
-	debug_message.emit("》》》》尝试给用户"+uid+"点赞")
+	if need_debug_message:
+		print("》》》》尝试给用户"+uid+"点赞")
+		debug_message.emit("》》》》尝试给用户"+uid+"点赞")
 	if ws.get_ready_state()==WebSocketPeer.STATE_OPEN:
 		sent_str("+*"+uid+""+mes)
 func sent_str(txt:String):
 	if ws.get_ready_state()==WebSocketPeer.STATE_OPEN:
 		var err=ws.send_text(txt)
 		if err==OK:
-			print_rich("[color=green]发送成功！[/color]")
-			debug_message.emit("[color=green]发送成功！[/color]")
+			if need_debug_message:
+				print_rich("[color=green]发送成功！[/color]")
+				debug_message.emit("[color=green]发送成功！[/color]")
 		else:
-			print_rich("[color=red]发送失败，遇到未知错误！[/color]")
-			debug_message.emit("[color=red]发送失败，遇到未知错误！[/color]")
+			if need_debug_message:
+				print_rich("[color=red]发送失败，遇到未知错误！[/color]")
+				debug_message.emit("[color=red]发送失败，遇到未知错误！[/color]")
 	else:
-		print_rich("[color=red]发送失败，未链接到蔷薇！[/color]")
-		debug_message.emit("[color=red]发送失败，未链接到蔷薇！[/color]")
+		if need_debug_message:
+			print_rich("[color=red]发送失败，未链接到蔷薇！[/color]")
+			debug_message.emit("[color=red]发送失败，未链接到蔷薇！[/color]")
 func sent_room_message(mes:String,color:String="ffffff"):
-	print("》》》》尝试向蔷薇发送房间消息："+mes)
-	debug_message.emit("》》》》尝试向蔷薇发送房间消息："+mes)
+	if need_debug_message:
+		print("》》》》尝试向蔷薇发送房间消息："+mes)
+		debug_message.emit("》》》》尝试向蔷薇发送房间消息："+mes)
 	var room_dic={}	 #{"m":"(消息内容)","mc":"(消息颜色)","i":"(随机数)"}	
 	room_dic["m"]=mes
 	room_dic["mc"]=color
@@ -362,16 +401,18 @@ func sent_room_message(mes:String,color:String="ffffff"):
 	room_dic["i"]=z
 	sent_str(JSON.stringify(room_dic))
 func sent_bullet_message(mes:String,color:String="ffffff"):
-	print("》》》》尝试向蔷薇发送弹幕消息："+mes)
-	debug_message.emit("》》》》尝试向蔷薇发送弹幕消息："+mes)
+	if need_debug_message:
+		print("》》》》尝试向蔷薇发送弹幕消息："+mes)
+		debug_message.emit("》》》》尝试向蔷薇发送弹幕消息："+mes)
 	var bullet_dic={} #~{"t":"(消息内容)","c":"(消息颜色)","v":0}
 	bullet_dic["t"]=mes
 	bullet_dic["c"]=color
 	bullet_dic["v"]=0
 	sent_str("~"+JSON.stringify(bullet_dic))
 func sent_side_message(uid:String,mes:String,color:String="ffffff"):
-	print("》》》》尝试向用户["+uid+"]发送私聊消息："+mes)
-	debug_message.emit("》》》》尝试向用户["+uid+"]发送私聊消息："+mes)
+	if need_debug_message:
+		print("》》》》尝试向用户["+uid+"]发送私聊消息："+mes)
+		debug_message.emit("》》》》尝试向用户["+uid+"]发送私聊消息："+mes)
 	var side_dic={} #{"g":"(接受者用户唯一标识)","m":"(消息内容)","mc":"(消息颜色)","i":"(随机数，房间消息的示例)"}
 	side_dic["g"]=uid
 	side_dic["m"]=mes

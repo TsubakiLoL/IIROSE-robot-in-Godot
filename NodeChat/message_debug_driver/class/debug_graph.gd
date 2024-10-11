@@ -36,8 +36,3 @@ func _on_focus_pressed() -> void:
 	if now_id!="":
 		focus_id(now_id)
 	pass # Replace with function body.
-
-
-
-
-
