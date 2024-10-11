@@ -1,3 +1,4 @@
+@tool
 extends Container
 ##抽屉容器节点，可以用于将子节点侧滑，开启clip content可以做到完全隐藏子节点
 class_name DrawerContainer
@@ -190,4 +191,3 @@ func side_button_size_changed()->void:
 	if side_button:
 		var new_size=side_button.get_minimum_size()
 		button_size=Vector2(max(custom_button_size.x,new_size.x),max(custom_button_size.y,new_size.y))
-

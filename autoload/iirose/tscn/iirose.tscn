@@ -10,7 +10,10 @@ script = ExtResource("1_dmn20")
 wait_time = 30.0
 autostart = true
 
+[connection signal="bullet_message_received" from="." to="." method="_on_bullet_message_received"]
 [connection signal="connected_to_server" from="." to="." method="connected"]
 [connection signal="connection_closed" from="." to="." method="closed"]
 [connection signal="message_received" from="." to="." method="get_mes"]
+[connection signal="room_message_received" from="." to="." method="_on_room_message_received"]
+[connection signal="side_message_received" from="." to="." method="_on_side_message_received"]
 [connection signal="timeout" from="ping_timer" to="." method="ping"]

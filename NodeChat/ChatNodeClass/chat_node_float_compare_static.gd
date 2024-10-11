@@ -23,7 +23,7 @@ func _init(root:NodeRoot) -> void:
 	output_port_array=["Bool"]
 	init_input()
 
-func process_input(id:String):
+func process_input(id:String)->bool:
 	if input_port_data[0] is float and mes.is_valid_float():
 		var res:bool=false
 		match c_type:
@@ -38,9 +38,12 @@ func process_input(id:String):
 			compare_type.TYPE_LESS_OR_SAME:
 				res=input_port_data[0]<=mes.to_float()
 		sent_data_to_out(res,0,id)
+		return true
 	elif input_port_data[0] is float:
 		sent_data_to_out(false,0,id)
-	
+		return true
+	else:
+		return false
 	
 	
 	

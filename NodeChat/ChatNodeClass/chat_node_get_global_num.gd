@@ -12,12 +12,15 @@ func _init(root:NodeRoot) -> void:
 	output_port_array=["Float"]
 	init_input()
 
-func process_input(id:String):
+func process_input(id:String)->bool:
 	var data:float
 	if root!=null:
 		data=root.get_data(id,mes)
 	if data!=null:
 		sent_data_to_out(data,0,id)
+		return true
+	else:
+		return false
 	
 
 

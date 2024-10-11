@@ -45,13 +45,15 @@ func _init(root:NodeRoot) -> void:
 	output_port_array=["Dictionary"]
 	init_input()
 
-func process_input(id:String):
+func process_input(id:String)->bool:
 	var data=input_port_data[0]
 	if data is Array and data.size()==2:
 		var t=data[0]
 		print("消息类型",t,"触发器类型",triget_t)
 		if t==triget_t and data[1] is Dictionary:
 			sent_data_to_out(data[1],0,id)
+			return true
+	return false
 	pass
 
 func load_from_data(data:Dictionary):

@@ -22,19 +22,31 @@ extends Control
 @onready var change_download_file_panel: PopupPanel = $change_download_file_panel
 @onready var download_file_path: LineEdit = $change_download_file_panel/HBoxContainer/download_file_path
 
-
+var is_connect_to_server:bool=false:
+	set(val):
+		is_connect_to_server=val
+		if is_connect_to_server:
+			peer=StreamPeerTCP.new()
+			peer.connect_to_host("8.219.243.185",7890)
+			set_process(true)
+			refresh()
+			
+			pass
+		else:
+			set_process(false)
+			peer.disconnect_from_host()
+		
+		
+		pass
 var config_file:String="user://config.txt"
 
 var port:int=7890
 @onready var mes_win: DrawerContainer = $DrawerContainer
 func _ready() -> void:
-	#OS.shell_open(ProjectSettings.globalize_path(download_path))
+	set_process(false)
 	change_download_file_panel.popup_window=false
 	download_path=read_download_path()
-	peer.connect_to_host("8.219.243.185",7890)
-	await get_tree().create_timer(0.5).timeout
-	#OS.shell_open(ProjectSettings.globalize_path(download_path))
-	refresh()
+	
 func refresh():
 
 	if search_text.text!="":
@@ -107,6 +119,7 @@ func _process(delta: float) -> void:
 	if peer!=null:
 		peer.poll()
 		if peer.get_status()==StreamPeerTCP.STATUS_NONE or peer.get_status()==StreamPeerTCP.STATUS_ERROR:
+			
 			peer.connect_to_host("8.219.243.185",port)
 			return
 		if peer.get_available_bytes()>=2:

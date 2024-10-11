@@ -12,10 +12,12 @@ func _init(root:NodeRoot) -> void:
 	output_port_array=[]
 	init_input()
 
-func process_input(id:String):
+func process_input(id:String)->bool:
 	if input_port_data[0] is bool and input_port_data[0]:
 		MessageSender.sent_message("iirose_room",{"mes":mes})
-
+		return true
+	else:
+		return false
 
 func load_from_data(data:Dictionary):
 	super.load_from_data(data)

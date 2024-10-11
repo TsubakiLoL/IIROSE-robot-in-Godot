@@ -8,6 +8,7 @@ func _init(root:NodeRoot) -> void:
 	output_port_array=["String"]
 	init_input()
 
-func process_input(id:String):
+func process_input(id:String)->bool:
 	sent_data_to_out(str(input_port_data[0]),0,id)
+	return true
 	pass

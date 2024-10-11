@@ -7,8 +7,9 @@ func _init(root:NodeRoot) -> void:
 	output_port_array=[]
 	init_input()
 
-func process_input(id:String):
+func process_input(id:String)->bool:
 	if input_port_data[0] is String:
 		MessageSender.sent_message("iirose_bullet",{"mes":input_port_data[0]})
-
-
+		return true
+	else:
+		return false

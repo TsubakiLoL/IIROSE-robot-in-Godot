@@ -151,6 +151,8 @@ func load_from_data(data:Dictionary):
 		judge_time=data["judge_time"]
 ##删除自身
 func delete():
+	if PromptMessageControler.is_linked(prompt_message):
+		PromptMessageControler.dislink(prompt_message)
 	for i in node_list:
 		i.delete()
 	call_deferred("free")
@@ -159,36 +161,38 @@ func delete():
 	#sent_data_to_out([triger_type,mes],0,id)
 	#VLR(id)
 var prompt_list:Array=[]
+#当前是否在debug中
+var is_in_debug:bool=false
+		
 ##收到消息
 func prompt_message(id:String,triger_type:ChatNodeTriger.triger_type,mes:Dictionary):
-	prompt_list.append({
-		"id":id,
-		"triger_type":triger_type,
-		"mes":mes
-		})
+	#prompt_list.append({
+		#"id":id,
+		#"triger_type":triger_type,
+		#"mes":mes
+		#})
 	if not id in user_instance_array:
 		add_user_instance(id)
 	var now_state:ChatNodeState=user_instance_array[id][0]
 	#now_state.prompt_message(id,triger_type,mes)
 	now_state.sent_data_to_out([triger_type,mes],0,id)
-	VLR(id,now_state)
-func prompt_message_debug(id:String,triger_type:ChatNodeTriger.triger_type,mes:Dictionary):
-	debug_cache.append({
+	if is_in_debug:
+		debug_cache.append({
 		"id":id,
 		"triger_type":triger_type,
 		"mes":mes,
 		"frame":[]
-	})
-	if not id in user_instance_array:
-		add_user_instance(id)
-	var now_state:ChatNodeState=user_instance_array[id][0]
-	#now_state.prompt_message(id,triger_type,mes)
-	now_state.sent_data_to_out([triger_type,mes],0,id)
-	VLR_debug(id,now_state)
+		})
+		VLR_debug(id,now_state)
+		debug_cache_update.emit()
+	else:
+		VLR(id,now_state)
+	
+signal debug_cache_update
 
-signal  single_step
 var debug_cache:Array=[]
 var message_list:Array=[]
+
 ##循环代替递归调用
 func VLR(id:String,from_node:ChatNode):
 	var stack:Array[ChatNode]=[]
@@ -319,17 +323,20 @@ func side_message(arr:Array):
 			now_state.side_message(i)
 ##启动此根节点
 func start():
-	IIROSE.room_message_received.connect(room_message)
-	IIROSE.bullet_message_received.connect(bullet_message)
-	IIROSE.side_message_received.connect(side_message)
+	#IIROSE.room_message_received.connect(room_message)
+	#IIROSE.bullet_message_received.connect(bullet_message)
+	#IIROSE.side_message_received.connect(side_message)
+	PromptMessageControler.link(prompt_message)
 	read_data_from_file()
 	is_start=true
 ##结束此根节点
 func end():
 	if is_start:
-		IIROSE.room_message_received.disconnect(room_message)
-		IIROSE.bullet_message_received.disconnect(bullet_message)
-		IIROSE.side_message_received.disconnect(side_message)
+		#IIROSE.room_message_received.disconnect(room_message)
+		#IIROSE.bullet_message_received.disconnect(bullet_message)
+		#IIROSE.side_message_received.disconnect(side_message)
+		if PromptMessageControler.is_linked(prompt_message):
+			PromptMessageControler.dislink(prompt_message)
 		is_start=false
 ##重载此根节点ID队列，将命名计数器自动转换为当前节点队列的上限+1
 func reload_id():

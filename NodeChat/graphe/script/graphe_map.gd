@@ -2,8 +2,6 @@ extends Control
 class_name GrapheMap
 ##当前正在编辑的节点集的引用
 @onready var root:NodeRoot=NodeRoot.new()
-##当前正在运行的节点集的引用
-var now_run_root:NodeRoot
 @onready var graph: GraphEdit = $VBoxContainer/GraphEdit
 @onready var pop_up_menu:PopupPanel=$PopupPanel
 @onready var nodeset: MenuButton = $VBoxContainer/HBoxContainer/Nodeset
@@ -114,7 +112,7 @@ func _on_graph_edit_disconnection_request(from_node: StringName, from_port: int,
 	graph.disconnect_node(from_node,from_port,to_node,to_port)
 func _on_graph_edit_popup_request(position: Vector2) -> void:
 	file_changed=true
-	pop_up_menu.position=position
+	pop_up_menu.position=Vector2(get_window().position)+position
 	pop_up_menu.show()
 	pass # Replace with function body.
 
@@ -125,7 +123,7 @@ func _on_graphe_pop_index_pressed(index: int) -> void:
 		return
 	var new_node:ChatNode=ChatNodeGraph.node_chat_class[index].new(root)
 	var new_graph=preload("res://NodeChat/new_graph/tscn/chat_node_graph.tscn").instantiate() as ChatNodeGraph
-	new_graph.position_offset=(Vector2(pop_up_menu.position)+graph.scroll_offset)/graph.zoom
+	new_graph.position_offset=(Vector2(pop_up_menu.position)+graph.scroll_offset)/graph.zoom-Vector2(get_window().position)
 	new_node.position_x=new_graph.position_offset.x
 	new_node.position_y=new_graph.position_offset.y
 	root.add_node(new_node)
@@ -167,8 +165,6 @@ func nodeset_pressed(id:int):
 		2:
 			save_as_other_file()
 		3:
-			if now_run_root!=null:
-				now_run_root.delete()
 			if root!=null:
 				root.delete()
 			queue_free()
@@ -202,21 +198,21 @@ func debug():
 	var res=Serializater.parse_string_new(str)
 	if res!=null:
 		print("从序列化中构建新的节点实例成功！")
-		if now_run_root!=null:
-			now_run_root.end()
-			now_run_root.delete_self()
-		now_run_root=res
-		now_run_root.start()
+		#if now_run_root!=null:
+			#now_run_root.end()
+			#now_run_root.delete_self()
+		#now_run_root=res
+		#now_run_root.start()
 		$VBoxContainer/HBoxContainer/stop.disabled=false
 	pass # Replace with function body.
 
 
 func stop_debug() -> void:
-	if root!=null:
-		now_run_root.end()
-		now_run_root.delete()
-		now_run_root=null
-		$VBoxContainer/HBoxContainer/stop.disabled=true
+	#if root!=null:
+		#now_run_root.end()
+		#now_run_root.delete()
+		#now_run_root=null
+		#$VBoxContainer/HBoxContainer/stop.disabled=true
 	pass # Replace with function body.
 
 
@@ -277,7 +273,7 @@ func _on_debug_pressed() -> void:
 	print(str)
 	var res=Serializater.parse_string_new(str)
 	if res!=null:
-		debug_window.root_instance=res
+		debug_window.create_from_instance(res)
 		debug_window.popup()
 	pass # Replace with function body.
 

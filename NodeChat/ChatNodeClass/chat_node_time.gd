@@ -9,5 +9,4 @@ func _init(root:NodeRoot) -> void:
 
 func process_input(id:String):
 	sent_data_to_out(Time.get_unix_time_from_system(),0,id)
-	
-
+	return true

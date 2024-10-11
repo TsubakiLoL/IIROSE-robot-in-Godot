@@ -28,12 +28,11 @@ func _init(root:NodeRoot) -> void:
 	output_port_array=["StateWithTriger"]
 	init_input()
 
-func process_input(id:String):
+func process_input(id:String)->bool:
 	if input_port_data[0] is bool and input_port_data[0]:
 		if root!=null:
 			root.change_state(id,self)
-			pass	
-	pass
+	return false
 	
 
 ##收到消息

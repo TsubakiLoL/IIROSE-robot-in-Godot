@@ -13,15 +13,19 @@ func _init(root:NodeRoot) -> void:
 	output_port_array=["Bool","String"]
 	init_input()
 
-func process_input(id:String):
+func process_input(id:String)->bool:
 	print(variable_name)
 	if input_port_data[0] is Dictionary:
 		if input_port_data[0].has(variable_name):
 			sent_data_to_out(true,0,id)
 			sent_data_to_out(input_port_data[0][variable_name],1,id)
+			
 		else:
 			sent_data_to_out(false,0,id)
 			sent_data_to_out("",1,id)
+		return true
+	else:
+		return false
 	pass
 
 

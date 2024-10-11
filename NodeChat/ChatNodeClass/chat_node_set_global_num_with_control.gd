@@ -12,9 +12,12 @@ func _init(root:NodeRoot) -> void:
 	variable_name_view=["全局变量名"]
 	output_port_array=[]
 	init_input()
-func process_input(id:String):
+func process_input(id:String)->bool:
 	if input_port_data[0] is bool and input_port_data[1] is float  and input_port_data[0]and root!=null:
 		root.set_data(id,num_name,input_port_data[1])
+		return true
+	else:
+		return false
 	pass
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bsu5rhajkv0gn"]
+[gd_scene load_steps=10 format=3 uid="uid://bsu5rhajkv0gn"]
 
 [ext_resource type="Script" path="res://NodeChat/graphe/script/graphe_map.gd" id="1_upfwo"]
 [ext_resource type="PackedScene" uid="uid://6833284xwo4p" path="res://NodeChat/graphe/tscn/graph.tscn" id="2_q4deu"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://c0cdcos0cxgfu" path="res://autoload/iirose/demo/login.tscn" id="3_o12v6"]
 [ext_resource type="PackedScene" uid="uid://dnv0vhp5xfvvy" path="res://autoload/iirose/demo/message_sent.tscn" id="4_5aw54"]
 [ext_resource type="PackedScene" uid="uid://b1ygjrriksm5v" path="res://NodeChat/message_debug_driver/tscn/debug_window.tscn" id="6_p231i"]
+
+[sub_resource type="Theme" id="Theme_l4lde"]
+PopupMenu/font_sizes/font_size = 30
 
 [sub_resource type="Gradient" id="Gradient_qragy"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -49,11 +52,11 @@ size_flags_vertical = 0
 [node name="Nodeset" type="MenuButton" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
+theme = SubResource("Theme_l4lde")
 text = "节点集"
 flat = false
 item_count = 4
 popup/item_0/text = "打开文件"
-popup/item_0/id = 0
 popup/item_1/text = "保存文件"
 popup/item_1/id = 1
 popup/item_2/text = "另存为"
@@ -98,19 +101,6 @@ layout_mode = 2
 size_flags_horizontal = 8
 icon = SubResource("GradientTexture2D_r0wvn")
 
-[node name="run" type="Button" parent="VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-text = "运行"
-
-[node name="stop" type="Button" parent="VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-disabled = true
-text = "停止"
-
 [node name="GraphEdit" parent="VBoxContainer" instance=ExtResource("2_q4deu")]
 layout_mode = 2
 
@@ -152,8 +142,6 @@ visible = false
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/debug" to="." method="_on_debug_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/mes" to="." method="_on_mes_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/online_message" to="." method="_on_online_message_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/run" to="." method="debug"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/stop" to="." method="stop_debug"]
 [connection signal="selected" from="PopupPanel" to="." method="_on_graphe_pop_index_pressed"]
 [connection signal="canceled" from="should_save" to="." method="_on_should_save_canceled"]
 [connection signal="confirmed" from="should_save" to="." method="_on_should_save_confirmed"]

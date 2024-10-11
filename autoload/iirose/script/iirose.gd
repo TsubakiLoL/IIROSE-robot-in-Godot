@@ -27,7 +27,7 @@ signal connection_closed(rea:Array)
 signal message_received(pac:PackedByteArray)
 signal login_success
 signal room_message_received(arr:Array)
-signal side_message_received
+signal side_message_received(arr:Array)
 signal bullet_message_received(arr:Array)
 signal stock_update
 signal debug_message(tex:String)
@@ -393,3 +393,28 @@ func get_self_name()->String:
 func move_to_room(r:String):
 	next_room=r
 	sent_str("m"+r)
+
+
+func _on_bullet_message_received(arr: Array) -> void:
+	for i in arr:
+		var id:String=i["name"]
+		if id!=get_self_name():
+			PromptMessageControler.prompt(id,ChatNodeTriger.triger_type.TYPE_BULLET,i)
+			pass
+	pass # Replace with function body.
+
+
+func _on_room_message_received(arr: Array) -> void:
+	for i in arr:
+		var id:String=i["name"]
+		if id!=get_self_name():
+			PromptMessageControler.prompt(id,ChatNodeTriger.triger_type.TYPE_ROOM,i)
+	pass # Replace with function body.
+
+
+func _on_side_message_received(arr:Array) -> void:
+	for i in arr:
+		var id:String=i["name"]
+		if id!=get_self_name():
+			PromptMessageControler.prompt(id,ChatNodeTriger.triger_type.TYPE_SIDE,i)
+	pass # Replace with function body.

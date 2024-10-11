@@ -62,8 +62,8 @@ func act(input,to_port:int,id:String):
 		input_port_data[to_port]=input
 		input_port_ready[to_port]=true
 		if is_ready():
-			process_input(id)
-			is_out_ready=true
+			is_out_ready=process_input(id)
+			
 			for i in range(input_port_ready.size()):
 				input_port_ready[i]=false
 ##当前所有输入端口的数据是否全部准备好
@@ -73,11 +73,11 @@ func is_ready()->bool:
 		res=res and i
 	return res
 ##对输入进行处理，交给子类进行数据处理，当前端口数据存在input_port_data:Array中
-func process_input(id:String):
+func process_input(id:String)->bool:
 	
 	
 	
-	
+	return false
 	pass
 ##将数据发送到端口
 func sent_data_to_out(output,port:int,id:String)->bool:

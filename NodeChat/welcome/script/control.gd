@@ -104,3 +104,13 @@ func _on_doc_pressed() -> void:
 func _on_plugin_pressed() -> void:
 	tab_container.set_current_tab(2)
 	pass # Replace with function body.
+
+
+func _on_online_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		%plugin.show()
+		%Webfile.is_connect_to_server=true
+	else:
+		%plugin.hide()
+		%Webfile.is_connect_to_server=false
+	pass # Replace with function body.

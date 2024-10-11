@@ -13,7 +13,7 @@ config_version=5
 config/name="椿的机器人"
 config/tags=PackedStringArray("github")
 run/main_scene="res://NodeChat/welcome/tscn/control.tscn"
-config/features=PackedStringArray("4.2", "Forward Plus")
+config/features=PackedStringArray("4.3", "Forward Plus")
 run/max_fps=60
 config/icon="res://icon.svg"
 
@@ -27,6 +27,7 @@ ChatGPT="*res://autoload/GPT/tscn/chat_gpt.tscn"
 Toast="*res://autoload/toast/tscn/toast_root.tscn"
 GlobalConfig="*res://autoload/GlobalConfig/tscn/global_config.tscn"
 MessageSender="*res://NodeChat/AutoLoad/MessageSender.tscn"
+PromptMessageControler="*res://NodeChat/AutoLoad/PromptMessageControler/prompt_message_controler.tscn"
 
 [display]
 

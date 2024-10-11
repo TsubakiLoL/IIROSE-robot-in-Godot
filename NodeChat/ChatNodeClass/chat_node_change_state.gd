@@ -7,7 +7,10 @@ func _init(root:NodeRoot) -> void:
 	input_port_array=["Bool"]
 	output_port_array=["ChangeState"]
 	init_input()
-func process_input(id:String):
+func process_input(id:String)->bool:
 	if input_port_data[0] is bool:
 		sent_data_to_out(input_port_data[0],0,id)
+		return true
+	else:
+		return false
 	pass

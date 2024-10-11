@@ -7,7 +7,7 @@ func _init(root:NodeRoot) -> void:
 	output_port_array=["Float"]
 	init_input()
 
-func process_input(id:String):
+func process_input(id:String)->bool:
 	if input_port_data[0] is float:
 		if input_port_data[0]>0:
 			sent_data_to_out(float(int(input_port_data[0])+1),0,id)
@@ -15,6 +15,8 @@ func process_input(id:String):
 			sent_data_to_out(0,0,id)
 		else:
 			sent_data_to_out(float(int(input_port_data[0])),0,id)
-	
+		return true
+	else:
+		return false
 	
 	

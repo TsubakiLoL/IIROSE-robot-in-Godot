@@ -7,8 +7,6 @@ func _init(root:NodeRoot) -> void:
 	output_port_array=["Float"]
 	init_input()
 
-func process_input(id:String):
+func process_input(id:String)->bool:
 	sent_data_to_out(randf(),0,id)
-	
-
-
+	return true

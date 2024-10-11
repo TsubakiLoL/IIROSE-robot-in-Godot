@@ -12,14 +12,16 @@ func _init(root:NodeRoot) -> void:
 	output_port_array=["Bool","String"]
 	init_input()
 
-func process_input(id:String):
+func process_input(id:String)->bool:
 	var data:Array
 	if root!=null:
 		data=root.get_string("main",mes)
 	if data[0] is bool and data[1] is String:
 		sent_data_to_out(data[0],0,id)
 		sent_data_to_out(data[1],1,id)
-	
+		return true
+	else:
+		return false
 
 
 func load_from_data(data:Dictionary):
