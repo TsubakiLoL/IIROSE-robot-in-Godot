@@ -2,7 +2,7 @@ extends Control
 const MESSAGE_MONO = preload("res://model/IIROSEChat/message_mono.tscn")
 var mes_array:Array=[]
 var max_mes_size:int=30
-func add_mes(head:String,text:String,is_self:bool=false):
+func add_mes(_name:String,head:String,text:String,is_self:bool=false):
 	var is_in_end:bool=is_scroll_in_end()
 	var new_mes=MESSAGE_MONO.instantiate()
 	if is_self:
@@ -10,7 +10,7 @@ func add_mes(head:String,text:String,is_self:bool=false):
 	else:
 		new_mes.side=0
 	%mes_add_pos.add_child(new_mes)
-	new_mes.set_mes(head,text)
+	new_mes.set_mes(_name,head,text,is_picture_mode())
 	mes_array.append(new_mes)
 	if mes_array.size()>max_mes_size:
 		mes_array[0].queue_free()
@@ -49,3 +49,11 @@ func _on_button_pressed() -> void:
 	IIROSE.sent_room_message(%LineEdit.text)
 	%LineEdit.clear()
 	pass # Replace with function body.
+
+signal picture_mode_changed(toggled_on:bool)
+func _on_check_button_toggled(toggled_on: bool) -> void:
+	picture_mode_changed.emit(toggled_on)
+	pass # Replace with function body.
+#当前是否打开图片显示
+func is_picture_mode():
+	return %picture_mode.button_pressed

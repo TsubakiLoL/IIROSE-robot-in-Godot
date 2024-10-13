@@ -222,11 +222,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 2
-current_tab = 3
+current_tab = 0
 tabs_visible = false
 
 [node name="welcome" type="Control" parent="Control2/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -380,6 +379,7 @@ layout_mode = 1
 offset_top = 74.0
 
 [node name="iirose" type="Control" parent="Control2/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 

@@ -11,7 +11,7 @@ func _on_about_to_popup() -> void:
 		var is_self=false
 		if i["name"]==IIROSE.get_self_name():
 			is_self=true
-		%ChatControl.add_mes(i["head"],i["message"],is_self)
+		%ChatControl.add_mes(i["name"],i["head"],i["message"],is_self)
 	pass # Replace with function body.
 
 
@@ -20,7 +20,7 @@ func _on_room_mes_receive(arr:Array):
 		var is_self=false
 		if i["name"]==IIROSE.get_self_name():
 			is_self=true
-		%ChatControl.add_mes(i["head"],i["message"],is_self)
+		%ChatControl.add_mes(i["name"],i["head"],i["message"],is_self)
 
 
 func _on_close_requested() -> void:
@@ -28,4 +28,16 @@ func _on_close_requested() -> void:
 	if IIROSE.room_message_received.is_connected(_on_room_mes_receive):
 		IIROSE.room_message_received.disconnect(_on_room_mes_receive)
 	hide()
+	pass # Replace with function body.
+
+
+func _on_chat_control_picture_mode_changed(toggled_on: bool) -> void:
+	%ChatControl.clear()
+	if not IIROSE.room_message_received.is_connected(_on_room_mes_receive):
+		IIROSE.room_message_received.connect(_on_room_mes_receive)
+	for i in IIROSE.room_message_cache:
+		var is_self=false
+		if i["name"]==IIROSE.get_self_name():
+			is_self=true
+		%ChatControl.add_mes(i["head"],i["message"],is_self)
 	pass # Replace with function body.
