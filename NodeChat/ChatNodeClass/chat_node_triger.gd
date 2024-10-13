@@ -1,22 +1,6 @@
 extends ChatNode
 class_name ChatNodeTriger
-##触发器类型
-enum triger_type{
-	TYPE_BULLET=0,
-	TYPE_ROOM=1,
-	TYPE_SIDE=2,
-	TYPE_ENTER=3,
-	TYPE_EXIT=4,
-	xxxx=5
-}
-##触发器名字
-static var triger_type_name:Dictionary={
-	0:"弹幕消息",
-	1:"房间消息",
-	2:"私聊消息",
-	3:"进入状态消息",
-	4:"退出状态消息"
-}
+
 static func get_triger_type_name(type:triger_type)->String:
 	
 	if triger_type_name.has(type):

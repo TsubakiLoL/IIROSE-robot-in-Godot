@@ -9,7 +9,7 @@ func _init(root:NodeRoot) -> void:
 
 func process_input(id:String)->bool:
 	if input_port_data[0] is bool and input_port_data[1] is String and input_port_data[0]:
-		MessageSender.sent_message("iirose_room",{"mes":input_port_data[1]})
+		IIROSE.sent_room_message(input_port_data[1])
 		return true
 	else:
 		return false

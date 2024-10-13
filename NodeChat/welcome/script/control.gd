@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 	else:
 		$Control2/TabContainer/iirose/MarginContainer/Control/flag.modulate=Color.RED
 func multi_mes(str:String):
-	$loginmes/ScrollContainer/Label.append_text(str+"\n")
+	$loginmes/ScrollContainer/login_mes_label.append_text(str+"\n")
 func _on_welcome_pressed() -> void:
 	tab_container.set_current_tab(0)
 	pass # Replace with function body.
@@ -38,7 +38,7 @@ func _on_control_edit_file(path: String) -> void:
 
 
 func _on_flag_pressed() -> void:
-	$loginmes.show()
+	$loginmes.popup()
 	pass # Replace with function body.
 
 
@@ -103,6 +103,7 @@ func _on_doc_pressed() -> void:
 
 func _on_plugin_pressed() -> void:
 	tab_container.set_current_tab(2)
+	%Webfile.refresh()
 	pass # Replace with function body.
 
 
@@ -112,7 +113,10 @@ func _on_online_toggled(toggled_on: bool) -> void:
 		%Webfile.is_connect_to_server=true
 		%online_num.show()
 	else:
+		if %TabContainer.current_tab==2:
+			%TabContainer.current_tab=0
 		%plugin.hide()
+		%online_num.hide()
 		%Webfile.is_connect_to_server=false
 	pass # Replace with function body.
 
@@ -124,4 +128,19 @@ func _on_editor_pressed() -> void:
 
 func _on_print_debug_toggled(toggled_on: bool) -> void:
 	IIROSE.need_debug_message=toggled_on
+	pass # Replace with function body.
+
+
+func _on_webfile_linked_num_update(num_int: int) -> void:
+	%online_num.text="当前在线用户:"+str(num_int)
+	pass # Replace with function body.
+
+
+func _on_login_mes_clear_pressed() -> void:
+	%login_mes_label.text=""
+	pass # Replace with function body.
+
+
+func _on_iirose_chat_pressed() -> void:
+	%IiroseChat.popup()
 	pass # Replace with function body.

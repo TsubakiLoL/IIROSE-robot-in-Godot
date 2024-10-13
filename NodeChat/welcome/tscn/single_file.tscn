@@ -68,6 +68,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="data" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -77,6 +78,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="data_select" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 icon = ExtResource("5_g8ocj")

@@ -115,6 +115,8 @@ func downloaded(str:String):
 				Toast.popup("下载失败，目录非法！")
 		
 	pass
+
+signal linked_num_update(num_int:int)
 func _process(delta: float) -> void:
 	if peer!=null:
 		peer.poll()
@@ -132,6 +134,10 @@ func _process(delta: float) -> void:
 					str=str.right(str.length()-1)
 					downloaded(str)
 					pass
+				elif str.begins_with("l"):
+					var num:int=int(str.right(-1))
+					linked_num_update.emit(num)
+					
 	
 	pass
 func start_download(id:int):

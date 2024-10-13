@@ -2,8 +2,18 @@ extends Node
 @export var buffer_size:int=1048560*8
 var ws =WebSocketPeer.new()
 var last_state = WebSocketPeer.STATE_CLOSED
-var uid_list:Array[String]=[]
+#var uid_list:Array[String]=[]
 var stock_message=[0,0,0]  #总股数，总金，单股价格
+#房间信息缓存
+var room_message_cache:Array=[]
+#房间信息缓存大小
+var room_message_cache_size:int=30
+#添加缓存
+func put_room_cache(room_mes_dic:Dictionary):
+	room_message_cache.append(room_mes_dic)
+	if room_message_cache.size()>room_message_cache_size:
+		room_message_cache.pop_front()
+
 var inpackeg={
 	"r":"66234e757a3ce", #房间标识
 	"n":"",				#名字
@@ -121,12 +131,12 @@ func exe_message(txt:String):
 						debug_message.emit("[color=green]》》》》登录成功！[/color]")
 					is_login=true
 					login_success.emit()
-				var spl=txt.split("<")
-				for i  in range(1,spl.size()) :
-					#print(spl)
-					var new_spl=spl[i].split(">")
-					if new_spl.size()>=9:
-						uid_list.append(new_spl[8])
+				#var spl=txt.split("<")
+				#for i  in range(1,spl.size()) :
+					##print(spl)
+					#var new_spl=spl[i].split(">")
+					#if new_spl.size()>=9:
+						#uid_list.append(new_spl[8])D
 			"s":
 				if not is_login:
 					if need_debug_message:
@@ -319,7 +329,8 @@ func exe_message(txt:String):
 				login_success.emit()
 		else:
 			#print(txt)
-			debug_message.emit(txt)
+			#debug_message.emit(txt)
+			pass
 	pass
 func poll() -> void:
 	if ws.get_ready_state() != ws.STATE_CLOSED:
@@ -357,7 +368,7 @@ func closed(res:Array):
 			debug_message.emit("[color=red]》》》》断开链接[/color]")
 			print(str(res))
 			print("重新链接中。。。")
-		debug_message.emit("重新链接中。。。")
+			debug_message.emit("重新链接中。。。")
 func get_mes(pac:PackedByteArray):
 	get_string_from_packeg(pac)
 func sent_popup(mes:String):
@@ -440,7 +451,7 @@ func _on_bullet_message_received(arr: Array) -> void:
 	for i in arr:
 		var id:String=i["name"]
 		if id!=get_self_name():
-			PromptMessageControler.prompt(id,ChatNodeTriger.triger_type.TYPE_BULLET,i)
+			PromptMessageControler.prompt(id,ChatNode.triger_type.TYPE_BULLET,i)
 			pass
 	pass # Replace with function body.
 
@@ -448,8 +459,9 @@ func _on_bullet_message_received(arr: Array) -> void:
 func _on_room_message_received(arr: Array) -> void:
 	for i in arr:
 		var id:String=i["name"]
+		put_room_cache(i)
 		if id!=get_self_name():
-			PromptMessageControler.prompt(id,ChatNodeTriger.triger_type.TYPE_ROOM,i)
+			PromptMessageControler.prompt(id,ChatNode.triger_type.TYPE_ROOM,i)
 	pass # Replace with function body.
 
 
@@ -457,5 +469,5 @@ func _on_side_message_received(arr:Array) -> void:
 	for i in arr:
 		var id:String=i["name"]
 		if id!=get_self_name():
-			PromptMessageControler.prompt(id,ChatNodeTriger.triger_type.TYPE_SIDE,i)
+			PromptMessageControler.prompt(id,ChatNode.triger_type.TYPE_SIDE,i)
 	pass # Replace with function body.

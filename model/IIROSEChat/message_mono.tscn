@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3 uid="uid://13w428dke6h5"]
+
+[ext_resource type="Script" path="res://model/IIROSEChat/message_mono.gd" id="1_f6sgq"]
+[ext_resource type="PackedScene" uid="uid://cq6t2pmfoue07" path="res://model/message/tscn/url_label.tscn" id="3_70ytu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dar7e"]
+bg_color = Color(0.670689, 0.67069, 0.670689, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Container" type="Container"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f6sgq")
+button_model = 2
+disable_button = true
+animation_model = 8
+is_open = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="left_tab" type="Control" parent="HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="left_head" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+clip_contents = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+expand_mode = 1
+stretch_mode = 6
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_dar7e")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="url_label" parent="HBoxContainer/PanelContainer/MarginContainer" instance=ExtResource("3_70ytu")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="right_head" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+clip_contents = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+expand_mode = 1
+stretch_mode = 6
+
+[node name="right_tab" type="Control" parent="HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[connection signal="finish" from="HBoxContainer/PanelContainer/MarginContainer/url_label" to="." method="_on_url_label_finish"]

@@ -2,7 +2,7 @@ extends Node
 
 
 
-func prompt(id:String,triger_type:ChatNodeTriger.triger_type,mes:Dictionary):
+func prompt(id:String,triger_type:ChatNode.triger_type,mes:Dictionary):
 	
 	for  i in triget_array:
 		if i!=null:

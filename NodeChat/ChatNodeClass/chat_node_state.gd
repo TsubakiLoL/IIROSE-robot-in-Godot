@@ -1,13 +1,7 @@
 extends ChatNode
 class_name ChatNodeState
 
-enum triger_type{
-	TYPE_BULLET=0,
-	TYPE_ROOM=1,
-	TYPE_SIDE=2,
-	TYPE_ENTER=3,
-	TYPE_EXIT=4
-}
+
 var is_init:bool=false:
 	set(val):
 		if not is_init and val:
@@ -36,7 +30,7 @@ func process_input(id:String)->bool:
 	
 
 ##收到消息
-func prompt_message(id:String,triger_type:ChatNodeTriger.triger_type,mes:Dictionary):
+func prompt_message(id:String,triger_type:ChatNode.triger_type,mes:Dictionary):
 	sent_data_to_out([triger_type,mes],0,id)
 	VLR(id)
 

@@ -1,4 +1,4 @@
-extends HFlowContainer
+extends FlowContainer
 class_name UrlLabel
 var label=preload("res://model/message/tscn/label.tscn")
 var texture=preload("res://model/message/tscn/texture.tscn")
@@ -6,9 +6,10 @@ var texture=preload("res://model/message/tscn/texture.tscn")
 @export var text:String
 @onready var reg=RegEx.new()
 @export var label_settings:LabelSettings
+signal finish
 func _ready() -> void:
-	
-	reload_from_text()
+	#reload_from_text()
+	pass
 func get_url_from_text():
 	reg.compile("\\[(.*?)\\]")
 	var from=0
@@ -49,7 +50,7 @@ func add_url_img(url:String):
 	add_child(imgnew)
 	exe_await_url(imgnew,await UrlGetter.request_url_image(url))
 
-func exe_await_url(node:TextureRect,arr:Array):
+func exe_await_url(node,arr:Array):
 	if arr[0]==true:
 		node.texture=arr[1]
 	else:
@@ -66,5 +67,16 @@ func reload_from_text():
 			add_label("@"+x[1][i])
 	if x[0].size()>x[1].size():
 		add_label(x[0][x[0].size()-1])
-		
-		pass
+	await get_tree().process_frame
+	for i in get_children():
+		await get_tree().process_frame
+		if is_instance_valid(i):
+			i.show()
+	finish.emit()
+func get_width():
+	
+	
+	pass
+
+func _on_sort_children() -> void:
+	pass # Replace with function body.

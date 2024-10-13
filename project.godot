@@ -15,7 +15,7 @@ config/tags=PackedStringArray("github")
 run/main_scene="res://NodeChat/welcome/tscn/control.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 run/max_fps=60
-config/icon="res://icon.svg"
+config/icon="res://tsubaki_head.png"
 
 [autoload]
 
@@ -26,7 +26,6 @@ NodeChatGlobalNum="*res://NodeChat/AutoLoad/node_chat_global_num.tscn"
 ChatGPT="*res://autoload/GPT/tscn/chat_gpt.tscn"
 Toast="*res://autoload/toast/tscn/toast_root.tscn"
 GlobalConfig="*res://autoload/GlobalConfig/tscn/global_config.tscn"
-MessageSender="*res://NodeChat/AutoLoad/MessageSender.tscn"
 PromptMessageControler="*res://NodeChat/AutoLoad/PromptMessageControler/prompt_message_controler.tscn"
 
 [display]
@@ -36,7 +35,7 @@ window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/easy_charts/plugin.cfg", "res://addons/godot_gpt/plugin.cfg")
+enabled=PackedStringArray("res://addons/FileAccessWeb/plugin.cfg", "res://addons/easy_charts/plugin.cfg", "res://addons/godot_gpt/plugin.cfg")
 
 [gui]
 

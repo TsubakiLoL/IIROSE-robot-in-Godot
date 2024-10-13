@@ -62,15 +62,16 @@ func load_new_node(path:String):
 	pass
 	
 
-
 func _on_load_file_pressed() -> void:
 	DisplayServer.file_dialog_show("选择节点集文件","","",false,DisplayServer.FILE_DIALOG_MODE_OPEN_FILE,PackedStringArray(["*.nodeset"]),load_file_selected)
+
 	pass # Replace with function body.
 func load_file_selected(status:bool,selected_paths:PackedStringArray,selected_filter_index:int):
 	if status:
 		load_new_node(selected_paths[0])
 	
 	pass
+
 #func open_file():
 	#DisplayServer.file_dialog_show("选择节点集文件"," "," ",false,DisplayServer.FILE_DIALOG_MODE_OPEN_FILE,PackedStringArray(),opened_file_selected)
 	#
