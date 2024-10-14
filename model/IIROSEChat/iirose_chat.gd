@@ -39,5 +39,5 @@ func _on_chat_control_picture_mode_changed(toggled_on: bool) -> void:
 		var is_self=false
 		if i["name"]==IIROSE.get_self_name():
 			is_self=true
-		%ChatControl.add_mes(i["head"],i["message"],is_self)
+		%ChatControl.add_mes(i["name"],i["head"],i["message"],is_self)
 	pass # Replace with function body.
