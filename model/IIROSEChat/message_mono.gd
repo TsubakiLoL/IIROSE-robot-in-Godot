@@ -1,12 +1,15 @@
 extends DrawerContainer
 @export var side:int=0
+@export var h_limit_scale=0.5
 signal finish
 func _ready() -> void:
+	
 	if side==0:
 		%left_tab.hide()
 		%right_tab.show()
 		%right_head.hide()
 		%left_head.show()
+		
 		button_model=BUTTON_MODEL.RIGHT
 		name_label=%right_name
 		head_node=%left_head
@@ -45,3 +48,14 @@ func exe_await_url(node:TextureRect,arr:Array):
 func _on_url_label_finish() -> void:
 	finish.emit()
 	pass # Replace with function body.
+
+
+func _on_panel_container_resized() -> void:
+	await get_tree().process_frame
+	if %PanelContainer.size.x>get_viewport().size.x*h_limit_scale:
+		%PanelContainer.custom_minimum_size.x=get_viewport().size.x*h_limit_scale
+		%normal_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+	pass # Replace with function body.
+
+
+	

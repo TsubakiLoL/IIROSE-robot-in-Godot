@@ -1,3 +1,14 @@
+#----------------------
+#版权所有：
+#	李志鹏
+#	新疆大学 计算机科学与技术学院 
+#	计算机科学与技术 21-3班
+#	毕业设计
+#	学号：20211401239
+#----------------------
+
+
+
 extends Node
 var config_file:String="user://config.txt"
 func read_config_value(value_name:String,defaule_value):

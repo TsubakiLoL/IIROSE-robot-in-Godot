@@ -41,3 +41,8 @@ func _on_chat_control_picture_mode_changed(toggled_on: bool) -> void:
 			is_self=true
 		%ChatControl.add_mes(i["name"],i["head"],i["message"],is_self)
 	pass # Replace with function body.
+
+
+func _on_size_changed() -> void:
+	_on_about_to_popup()
+	pass # Replace with function body.

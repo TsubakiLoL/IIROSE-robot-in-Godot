@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg8w7v1jf5sfx"]
+
+[ext_resource type="Script" path="res://tool/texture_label.gd" id="1_vo151"]
+
+[node name="texture_label" type="RichTextLabel"]
+offset_right = 1152.0
+offset_bottom = 648.0
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+context_menu_enabled = true
+script = ExtResource("1_vo151")

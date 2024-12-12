@@ -1,6 +1,25 @@
+#----------------------
+#版权所有：
+#	李志鹏
+#	新疆大学 计算机科学与技术学院 
+#	计算机科学与技术 21-3班
+#	毕业设计
+#	学号：20211401239
+#----------------------
+
+
+
+
 extends Node
 var url_mono=preload("res://autoload/urlgetter/tscn/head_url.tscn")
 var url_dictionary:Dictionary={}
+
+#通过引用计数释放
+func judge_url_count():
+	for i in url_dictionary.keys():
+		var texture:Texture2D=url_dictionary[i]
+		if texture.get_reference_count()<=1:
+			url_dictionary.erase(i)
 func request_url_image(url:String)->Array:
 	var split:PackedStringArray=url.split("#")
 
@@ -78,3 +97,8 @@ func is_format(n:String,file_data:PackedByteArray)->bool:
 		return is_f
 	else:
 		return false
+
+
+func _on_timer_timeout() -> void:
+	judge_url_count()
+	pass # Replace with function body.

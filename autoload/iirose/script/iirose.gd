@@ -1,3 +1,14 @@
+#----------------------
+#版权所有：
+#	李志鹏
+#	新疆大学 计算机科学与技术学院 
+#	计算机科学与技术 21-3班
+#	毕业设计
+#	学号：20211401239
+#----------------------
+
+
+
 extends Node
 @export var buffer_size:int=1048560*8
 var ws =WebSocketPeer.new()
@@ -424,7 +435,7 @@ func sent_side_message(uid:String,mes:String,color:String="ffffff"):
 	if need_debug_message:
 		print("》》》》尝试向用户["+uid+"]发送私聊消息："+mes)
 		debug_message.emit("》》》》尝试向用户["+uid+"]发送私聊消息："+mes)
-	var side_dic={} #{"g":"(接受者用户唯一标识)","m":"(消息内容)","mc":"(消息颜色)","i":"(随机数，房间消息的示例)"}
+	var side_dic={} 
 	side_dic["g"]=uid
 	side_dic["m"]=mes
 	side_dic["mc"]=color

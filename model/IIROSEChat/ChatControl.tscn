@@ -81,11 +81,18 @@ vertical_scroll_mode = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="mes_add_pos" type="VBoxContainer" parent="VBoxContainer/Control/mes_scroll"]
-unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 10
 theme_override_constants/separation = 20
+
+[node name="mes_add_pos" type="VBoxContainer" parent="VBoxContainer/Control/mes_scroll/mes_add_pos"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/Control/mes_scroll/mes_add_pos"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
 
 [node name="Panel" type="PanelContainer" parent="VBoxContainer"]
 z_index = 1
