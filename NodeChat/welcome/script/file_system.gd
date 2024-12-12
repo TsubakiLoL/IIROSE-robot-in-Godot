@@ -101,7 +101,7 @@ func add_new_file(path:String):
 		path+=".nodeset"
 	var f=FileAccess.open(path,FileAccess.WRITE)
 	if f!=null:
-		f.store_string('[{"0":{"from_node_array":[],"next_node_array":[],"position_x":0,"position_y":0,"type":0}},{"init_state":"0","judge_time":2,"time_to_delete_instance":30}]')
+		f.store_string('[{"0":{"from_node_array":[],"next_node_array":[],"position_x":0,"position_y":0,"type":0,"mod_from":"basemod","mod_node":"状态节点"}},{"init_state":"0","judge_time":2,"time_to_delete_instance":30}]')
 		f.close()
 		load_new_node(path)
 	

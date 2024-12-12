@@ -14,4 +14,5 @@ offset_top = 4.0
 offset_right = 226.0
 offset_bottom = 496.0
 
+[connection signal="select_node" from="node_select" to="." method="_on_node_select_select_node"]
 [connection signal="selected" from="node_select" to="." method="_on_node_select_selected"]

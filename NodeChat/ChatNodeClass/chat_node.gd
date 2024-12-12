@@ -24,6 +24,13 @@ var position_y:float=0
 var id:String="0"
 ##节点的类型
 var type:int=0
+
+##来自的mod组件
+var mod_from:String
+##来自组件的mod类名
+var mod_node:String
+
+
 ##输入节点类型数组
 var input_port_array:Array[String]=[]
 ##输出节点类型数组
@@ -124,6 +131,8 @@ func load_from_data(data:Dictionary):
 ##将自己的数据输出到data字典
 func export_data(data:Dictionary):
 	data["type"]=type
+	data["mod_from"]=mod_from
+	data["mod_node"]=mod_node
 	data["position_x"]=position_x
 	data["position_y"]=position_y
 	var next_array:Array=[]

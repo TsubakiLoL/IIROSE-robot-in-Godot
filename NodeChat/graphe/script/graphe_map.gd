@@ -82,7 +82,7 @@ func open_state_root(file_path:String):
 	if f!=null:
 		var str=f.get_as_text()
 		f.close()
-		var node=Serializater.parse_string_new(str)
+		var node=Serializater.parse_string(str)
 		if node!=null:
 			if file_changed:
 				next_file_path=file_path
@@ -208,7 +208,7 @@ func debug():
 	var str=Serializater.stringfy_state_root_new(root)
 	#print("调试序列化成功：")
 	#print(str)
-	var res=Serializater.parse_string_new(str)
+	var res=Serializater.parse_string(str)
 	if res!=null:
 		#print("从序列化中构建新的节点实例成功！")
 		#if now_run_root!=null:
@@ -284,7 +284,7 @@ func _on_debug_pressed() -> void:
 	var str=Serializater.stringfy_state_root_new(root)
 	#print("调试序列化成功：")
 	#print(str)
-	var res=Serializater.parse_string_new(str)
+	var res=Serializater.parse_string(str)
 	if res!=null:
 		debug_window.create_from_instance(res)
 		debug_window.popup()
@@ -293,4 +293,26 @@ func _on_debug_pressed() -> void:
 
 func _on_doc_pressed() -> void:
 	get_parent()._on_doc_pressed()
+	pass # Replace with function body.
+
+
+func _on_popup_panel_selected_node(mod: String, node: String) -> void:
+	
+	file_changed=true
+	var node_class=ModLoader.get_node_class(mod,node)
+	if node_class==null:
+		return
+	
+	var new_node:ChatNode=node_class.new(root)
+	new_node.mod_from=mod
+	new_node.mod_node=node
+	var new_graph=preload("res://NodeChat/new_graph/tscn/chat_node_graph.tscn").instantiate() as ChatNodeGraph
+	new_graph.position_offset=(Vector2(pop_up_menu.position)+graph.scroll_offset)/graph.zoom-Vector2(get_window().position)
+	new_node.position_x=new_graph.position_offset.x
+	new_node.position_y=new_graph.position_offset.y
+	root.add_node(new_node)
+	graph.add_child(new_graph)
+	new_graph.set_real(new_node)
+	new_graph.init()
+	
 	pass # Replace with function body.

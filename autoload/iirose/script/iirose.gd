@@ -93,6 +93,13 @@ func send_in_pack():
 			debug_message.emit("[color=red]》》》》错误：还未与蔷薇建立链接或链接已断开[/color]")
 func _ready() -> void:
 	set_buffer_size(buffer_size)
+	ping_timer=Timer.new()
+	add_child(ping_timer)
+	ping_timer.one_shot=true
+	ping_timer.timeout.connect(ping)
+	message_received.connect(get_mes)
+	connected_to_server.connect(connected)
+	connection_closed.connect(closed)
 func _process(delta: float) -> void:
 	poll()
 func get_gzip(pkg:PackedByteArray):

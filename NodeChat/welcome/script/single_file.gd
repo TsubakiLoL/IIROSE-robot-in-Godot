@@ -39,7 +39,7 @@ func _on_run_pressed() -> void:
 		var f=FileAccess.open(root_path,FileAccess.READ)
 		if f!=null:
 			var str=f.get_as_text()
-			var res=Serializater.parse_string_new(str)
+			var res=Serializater.parse_string(str)
 			if res!=null:
 				now_root=res
 				timer.wait_time=now_root.judge_time

@@ -8,7 +8,7 @@ var user_instance_array:Dictionary={} #UID:[now_state,time_last_move,data_dic:Di
 ##用户数据字典
 var user_data_dic:Dictionary={}
 ##默认状态的进入状态引用
-var init_state:ChatNodeState
+var init_state
 ##当用户长时间没进行交互时，删除用户实例需要经过的时间（s）
 var time_to_delete_instance:float=30
 ##每次遍历字典判定过期的间隔时间，用于节省性能
@@ -50,7 +50,7 @@ func add_user_instance(id:String):
 func delete_user_instance(id:String):
 	user_instance_array.erase(id)
 ##改变状态到指定的状态，如果当前用户实例不存在，则新建实例
-func change_state(id:String,state:ChatNodeState)->void:
+func change_state(id:String,state)->void:
 	if not user_instance_array.has(id):
 		add_user_instance(id)
 	if not user_data_dic.has(id):
@@ -114,7 +114,7 @@ func set_data(id:String,data_name:String,new_value:float)->void:
 	else:
 		user_data_dic[id][data_name]=new_value
 ##设置进入状态
-func set_init_state(state:ChatNodeState):
+func set_init_state(state):
 	if init_state!=null:
 		init_state.is_init=false
 	init_state=state
