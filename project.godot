@@ -40,7 +40,7 @@ window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/FileAccessWeb/plugin.cfg", "res://addons/easy_charts/plugin.cfg", "res://addons/godot_gpt/plugin.cfg")
+enabled=PackedStringArray("res://addons/FileAccessWeb/plugin.cfg", "res://addons/godot_gpt/plugin.cfg")
 
 [gui]
 
