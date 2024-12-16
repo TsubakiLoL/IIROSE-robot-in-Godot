@@ -12,8 +12,7 @@ extends Node
 
 
 
-func prompt(id:String,triger_type:ChatNode.triger_type,mes:Dictionary):
-	
+func prompt(id:String,triger_type:String,mes:Dictionary):
 	for  i in triget_array:
 		if i!=null:
 			i.callv([id,triger_type,mes])

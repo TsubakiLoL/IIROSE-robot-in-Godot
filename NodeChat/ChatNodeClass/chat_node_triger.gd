@@ -1,14 +1,14 @@
 extends ChatNode
 class_name ChatNodeTriger
 
-static func get_triger_type_name(type:triger_type)->String:
+static func get_triger_type_name(type:String)->String:
 	
 	if triger_type_name.has(type):
 		return str(triger_type_name[type])
 	else:
 		return "未命名触发器类型"+str(type)
 	pass
-var triget_t:triger_type=triger_type.TYPE_BULLET
+var triget_t:String
 func _init(root:NodeRoot) -> void:
 	super._init(root)
 	type=1
@@ -16,14 +16,12 @@ func _init(root:NodeRoot) -> void:
 	variable_type_array=[ChatNode.variable_type.TYPE_SELECT]
 	var triger_type_arr=[]
 	var triger_type_name_arr=[]
-	for i in triger_type.values():
-		triger_type_arr.append(i)
-		if triger_type_name.has(i):
-			triger_type_name_arr.append(str(triger_type_name[i]))
-		else:
-			triger_type_name_arr.append("未命名触发器类型："+str(i))
+	var all_triger=ModLoader.get_all_triger()
+	triget_t=all_triger[0]
+	for i in all_triger:
+		triger_type_name_arr.append(ModLoader.get_triger_name(i))
 	#variable_type_more=[[[0,1,2,3,4],["弹幕","房间","私聊","进入状态","退出状态"]]]
-	variable_type_more=[[triger_type_arr,triger_type_name_arr]]
+	variable_type_more=[[all_triger,triger_type_name_arr]]
 	variable_name_view=["模式"]
 	input_port_array=["StateWithTriger"]
 	output_port_array=["Dictionary"]
@@ -44,8 +42,9 @@ func load_from_data(data:Dictionary):
 	if data.has("triger_t"):
 		var new_triger_t=data["triger_t"]
 		#print(new_triger_t)
-		if int(new_triger_t) in triger_type.values():
-			triget_t=int(new_triger_t)
+		var all_triger=ModLoader.get_all_triger()
+		if new_triger_t in all_triger:
+			triget_t=new_triger_t
 func export_data(data:Dictionary):
 	super.export_data(data)
 	data["triger_t"]=triget_t

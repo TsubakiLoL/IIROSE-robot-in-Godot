@@ -174,7 +174,7 @@ func init():
 					add_child(check)
 				ChatNode.variable_type.TYPE_SELECT:
 					 #[[triger_type,["弹幕","房间","私聊","进入状态","退出状态"]]]
-					var map_dic:Array[int]=[]
+					var map_dic:Array[String]=[]
 					var data=real_var.variable_type_more[i]
 					var option=preload("res://NodeChat/new_graph/tscn/option_button.tscn").instantiate() as NodeChatSelect
 					for j in range(data[0].size()):

@@ -165,7 +165,7 @@ var prompt_list:Array=[]
 var is_in_debug:bool=false
 		
 ##收到消息
-func prompt_message(id:String,triger_type:ChatNodeTriger.triger_type,mes:Dictionary):
+func prompt_message(id:String,triger_type:String,mes:Dictionary):
 	#prompt_list.append({
 		#"id":id,
 		#"triger_type":triger_type,

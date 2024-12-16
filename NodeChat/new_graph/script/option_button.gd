@@ -13,7 +13,7 @@ extends OptionButton
 
 class_name NodeChatSelect
 signal tab_select(ind:int)
-var map_dic:Array[int]=[]
+var map_dic:Array[String]=[]
 
 func _on_item_selected(index: int) -> void:
 	if index<map_dic.size():

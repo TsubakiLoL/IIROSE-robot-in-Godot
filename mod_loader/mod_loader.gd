@@ -16,6 +16,13 @@ var mod_origin_db:Dictionary={}
 var mod_autoload_db:Dictionary={}
 #mod节点类集
 var mod_nodeclass_db:Dictionary={}
+
+
+#mod加载的触发器类型
+var mod_triger_type_name_db:Dictionary={
+	"test_1":"测试触发器1"
+}
+
 #加载mod的路径
 var load_path:String="user://mod"
 
@@ -98,6 +105,13 @@ func install_mod(mod_name:String,mod_data:Dictionary):
 			print("\t加载类:"+mod_name+"/"+i)
 			var new_script:GDScript=load(mod_path+"/"+node_dic[i])
 			mod_nodeclass_db[mod_name][i]=new_script
+	if mod_data.has("triger"):
+		var mod_triger_data=mod_data["triger"]
+		if mod_triger_data is Dictionary:
+			for i in mod_triger_data.keys():
+				mod_triger_type_name_db[i]=mod_triger_data[i]
+				print("\t加载触发器类型:"+mod_triger_data[i]+"("+i+")")
+		pass
 #依据mod名称卸载mod
 func uninstall_mod(mod_name:String):
 	print("卸载模块:"+mod_name)
@@ -140,3 +154,13 @@ func get_node_class(mod_name:String,node_name:String):
 		print("未在模块中找到指定节点:"+mod_name+"/"+node_name)
 		return null
 	return mode_class[node_name]
+
+#获取当前加载的全部触发器类型
+func get_all_triger()->Array:
+	return mod_triger_type_name_db.keys()
+#获取trigertype对应的触发器名字
+func get_triger_name(triger_type:String)->String:
+	if mod_triger_type_name_db.has(triger_type):
+		return mod_triger_type_name_db[triger_type]
+	else:
+		return "未知触发器类型"

@@ -30,33 +30,33 @@ func process_input(id:String)->bool:
 	
 
 ##收到消息
-func prompt_message(id:String,triger_type:ChatNode.triger_type,mes:Dictionary):
+func prompt_message(id:String,triger_type:String,mes:Dictionary):
 	sent_data_to_out([triger_type,mes],0,id)
 	VLR(id)
 
 	
 
-func bullet_message(mes:Dictionary):
-	if mes.has("uid"):
-		sent_data_to_out([triger_type.TYPE_BULLET,mes],0,mes["uid"])
-		VLR(mes["uid"])
-func room_message(mes:Dictionary):
-	print("状态收到房间消息",mes)
-	if mes.has("uid"):
-		#print("存在uid")
-		sent_data_to_out([triger_type.TYPE_ROOM,mes],0,mes["uid"])
-		VLR(mes["uid"])
-func side_message(mes:Dictionary):
-	if mes.has("uid"):
-		sent_data_to_out([triger_type.TYPE_SIDE,mes],0,mes["uid"])
-		VLR(mes["uid"])
-
-func enter_state(id:String):
-	sent_data_to_out([triger_type.TYPE_ENTER,{}],0,id)
-
-
-func exit_state(id:String):
-	sent_data_to_out([triger_type.TYPE_EXIT,{}],0,id)
+#func bullet_message(mes:Dictionary):
+	#if mes.has("uid"):
+		#sent_data_to_out([triger_type.TYPE_BULLET,mes],0,mes["uid"])
+		#VLR(mes["uid"])
+#func room_message(mes:Dictionary):
+	#print("状态收到房间消息",mes)
+	#if mes.has("uid"):
+		##print("存在uid")
+		#sent_data_to_out([triger_type.TYPE_ROOM,mes],0,mes["uid"])
+		#VLR(mes["uid"])
+#func side_message(mes:Dictionary):
+	#if mes.has("uid"):
+		#sent_data_to_out([triger_type.TYPE_SIDE,mes],0,mes["uid"])
+		#VLR(mes["uid"])
+#
+#func enter_state(id:String):
+	#sent_data_to_out([triger_type.TYPE_ENTER,{}],0,id)
+#
+#
+#func exit_state(id:String):
+	#sent_data_to_out([triger_type.TYPE_EXIT,{}],0,id)
 
 ##循环代替递归调用
 func VLR(id:String):

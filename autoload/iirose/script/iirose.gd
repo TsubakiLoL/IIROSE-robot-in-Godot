@@ -469,8 +469,8 @@ func _on_bullet_message_received(arr: Array) -> void:
 	for i in arr:
 		var id:String=i["name"]
 		if id!=get_self_name():
-			PromptMessageControler.prompt(id,ChatNode.triger_type.TYPE_BULLET,i)
-			pass
+			PromptMessageControler.prompt(id,"iirose_triger_bullet",i)
+			
 	pass # Replace with function body.
 
 
@@ -479,7 +479,7 @@ func _on_room_message_received(arr: Array) -> void:
 		var id:String=i["name"]
 		put_room_cache(i)
 		if id!=get_self_name():
-			PromptMessageControler.prompt(id,ChatNode.triger_type.TYPE_ROOM,i)
+			PromptMessageControler.prompt(id,"iirose_triger_room",i)
 	pass # Replace with function body.
 
 
@@ -487,5 +487,5 @@ func _on_side_message_received(arr:Array) -> void:
 	for i in arr:
 		var id:String=i["name"]
 		if id!=get_self_name():
-			PromptMessageControler.prompt(id,ChatNode.triger_type.TYPE_SIDE,i)
+			PromptMessageControler.prompt(id,"iirose_triger_side",i)
 	pass # Replace with function body.

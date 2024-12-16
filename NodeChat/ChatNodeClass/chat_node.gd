@@ -46,13 +46,13 @@ var variable_type_more:Array=[]
 ##外部输入变量的显示标识
 var variable_name_view:Array[String]=[]
 ##触发器类型
-enum triger_type{
-	TYPE_BULLET=0,
-	TYPE_ROOM=1,
-	TYPE_SIDE=2,
-	TYPE_ENTER=3,
-	TYPE_EXIT=4,
-}
+#enum triger_type{
+	#TYPE_BULLET=0,
+	#TYPE_ROOM=1,
+	#TYPE_SIDE=2,
+	#TYPE_ENTER=3,
+	#TYPE_EXIT=4,
+#}
 ##触发器名字
 static var triger_type_name:Dictionary={
 	0:"弹幕消息",
