@@ -163,11 +163,10 @@ func _on_graph_edit_delete_nodes_request(nodes: Array[StringName]) -> void:
 
 
 func _ready() -> void:
-	nodeset.get_popup().id_pressed.connect(nodeset_pressed)
-	IIROSE.debug_message.connect(debug_message)
 	#IIROSE.set_information("雪村千绘莉","tsubaki","66234e757a3ce")
 	#IIROSE.start_connect()
-
+	pass
+	
 func nodeset_pressed(id:int):
 	match id:
 		0:
@@ -243,15 +242,6 @@ func reload_from_state_r():
 				var from=i.id
 				graph.connect_node(from,j[1],j[0].id,j[2])
 
-func _process(delta: float) -> void:
-	match IIROSE.is_login:
-		true:
-			online_message.modulate=Color.GREEN
-		false:
-			online_message.modulate=Color.RED
-	
-	
-	pass
 
 
 func _on_should_save_canceled() -> void:

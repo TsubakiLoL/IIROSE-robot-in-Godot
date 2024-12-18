@@ -23,17 +23,17 @@ func _process(delta: float) -> void:
 
 
 func _on_button_pressed() -> void:
-	IIROSE.sent_room_message($"Control/TabContainer/房间/VBoxContainer/TextEdit".text)
+	#IIROSE.sent_room_message($"Control/TabContainer/房间/VBoxContainer/TextEdit".text)
 	pass # Replace with function body.
 
 
 func _on_bullet_pressed() -> void:
-	IIROSE.sent_bullet_message($"Control/TabContainer/弹幕/VBoxContainer/TextEdit".text)
+	#IIROSE.sent_bullet_message($"Control/TabContainer/弹幕/VBoxContainer/TextEdit".text)
 	pass # Replace with function body.
 
 
 func _on_side_pressed() -> void:
-	IIROSE.sent_side_message($"Control/TabContainer/私聊/VBoxContainer/HBoxContainer/TextEdit".text,$"Control/TabContainer/私聊/VBoxContainer/TextEdit".text)
+	#IIROSE.sent_side_message($"Control/TabContainer/私聊/VBoxContainer/HBoxContainer/TextEdit".text,$"Control/TabContainer/私聊/VBoxContainer/TextEdit".text)
 	pass # Replace with function body.
 
 
@@ -47,5 +47,5 @@ func _on_tab_container_tab_changed(tab: int) -> void:
 
 
 func _on_cmd_pressed() -> void:
-	IIROSE.sent_str($"Control/TabContainer/指令/VBoxContainer/TextEdit".text)
+	#IIROSE.sent_str($"Control/TabContainer/指令/VBoxContainer/TextEdit".text)
 	pass # Replace with function body.

@@ -23,6 +23,9 @@ var mod_triger_type_name_db:Dictionary={
 	"test_1":"测试触发器1"
 }
 
+#mod加载的在主界面的面板的数据
+var mod_panel_db:Dictionary={}
+
 #加载mod的路径
 var load_path:String="user://mod"
 
@@ -111,7 +114,20 @@ func install_mod(mod_name:String,mod_data:Dictionary):
 			for i in mod_triger_data.keys():
 				mod_triger_type_name_db[i]=mod_triger_data[i]
 				print("\t加载触发器类型:"+mod_triger_data[i]+"("+i+")")
-		pass
+	if mod_data.has("panel"):
+		var mod_panel_data=mod_data["panel"]
+		if mod_panel_data is Dictionary:
+			mod_panel_db[mod_name]=[]
+			for i in mod_panel_data.keys():
+				var single_panel_data=mod_panel_data[i]
+				var tscn=null
+				var tscn_script=null
+				if single_panel_data.has("tscn"):
+					tscn=load(mod_path+single_panel_data["tscn"])
+				if single_panel_data.has("script"):
+					tscn_script=load(mod_path+single_panel_data["script"])
+				mod_panel_db[mod_name].append([i,tscn,tscn_script])
+
 #依据mod名称卸载mod
 func uninstall_mod(mod_name:String):
 	print("卸载模块:"+mod_name)
@@ -132,7 +148,16 @@ func uninstall_mod(mod_name:String):
 	if mod_nodeclass_db.has(mod_name):
 		#卸载类数据库
 		mod_nodeclass_db.erase(mod_name)
-		
+	#卸载触发器类型
+	if mod_data.has("triger"):
+		var mod_triger_data=mod_data["triger"]
+		if mod_triger_data is Dictionary:
+			for i in mod_triger_data.keys():
+				mod_triger_type_name_db.erase(i)
+				print("\t卸载触发器类型:"+mod_triger_data[i]+"("+i+")")
+	#卸载面板
+	if mod_panel_db.has(mod_name):
+		mod_panel_db.erase(mod_name)
 #获取全部节点的队列
 func get_all_node_class():
 	var res:Array=[]
@@ -164,3 +189,10 @@ func get_triger_name(triger_type:String)->String:
 		return mod_triger_type_name_db[triger_type]
 	else:
 		return "未知触发器类型"
+
+#获取全部需要加载的面板
+func get_all_panel():
+	var res=[]
+	for i in mod_panel_db.values():
+		res.append_array(i)
+	return res

@@ -24,7 +24,8 @@ func _ready() -> void:
 	else:
 		load_config()
 func comp(gpt_text:String):
-	IIROSE.sent_room_message(gpt_text)
+	#IIROSE.sent_room_message(gpt_text)
+	pass
 
 func ask(mes:String):
 	

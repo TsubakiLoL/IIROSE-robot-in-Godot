@@ -26,6 +26,6 @@ func _process(delta: float) -> void:
 
 
 func _on_button_pressed() -> void:
-	IIROSE.set_information(user_name.text,user_p.text,room.text)
-	IIROSE.start_connect()
+	#IIROSE.set_information(user_name.text,user_p.text,room.text)
+	#IIROSE.start_connect()
 	pass # Replace with function body.

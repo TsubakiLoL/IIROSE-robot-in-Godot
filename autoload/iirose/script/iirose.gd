@@ -42,7 +42,7 @@ var inpackeg={
 var next_room:String=""
 var is_login:bool=false
 var is_in_logging:bool=false
-@onready var ping_timer: Timer = $ping_timer
+var ping_timer: Timer
 signal connected_to_server
 signal connection_closed(rea:Array)
 signal message_received(pac:PackedByteArray)
@@ -73,7 +73,7 @@ func start_connect():
 	set_buffer_size(buffer_size)
 	last_state = WebSocketPeer.STATE_CLOSED
 	is_login=false
-	ws.connect_to_url("wss://m1.iirose.com:8778",TLSOptions.client())
+	ws.connect_to_url("ws://m1.iirose.com:8777",TLSOptions.client())
 	if need_debug_message:
 		print("》》》》正在链接到蔷薇世界")
 		debug_message.emit("》》》》正在链接到蔷薇世界")
@@ -95,11 +95,10 @@ func _ready() -> void:
 	set_buffer_size(buffer_size)
 	ping_timer=Timer.new()
 	add_child(ping_timer)
-	ping_timer.one_shot=true
+	ping_timer.one_shot=false
 	ping_timer.timeout.connect(ping)
-	message_received.connect(get_mes)
-	connected_to_server.connect(connected)
-	connection_closed.connect(closed)
+	ping_timer.wait_time=30
+	ping_timer.start()
 func _process(delta: float) -> void:
 	poll()
 func get_gzip(pkg:PackedByteArray):
@@ -280,6 +279,7 @@ func exe_message(txt:String):
 				print_rich("[color=white]《《《《私聊信息处理结果：[/color]",side_dic_array)
 				debug_message.emit("[color=white]《《《《私聊信息处理结果：[/color]"+str(side_dic_array))
 			side_message_received.emit(side_dic_array)
+			_on_side_message_received(side_dic_array)
 		else:
 			if need_debug_message:
 				print_rich("[color=yellow]《《《《房间信息：[/color]"+new_text)
@@ -298,6 +298,7 @@ func exe_message(txt:String):
 				print_rich("[color=yellow]《《《《房间信息处理结果：[/color]",room_dic_array)
 				debug_message.emit("[color=yellow]《《《《房间信息处理结果：[/color]"+str(room_dic_array))
 			room_message_received.emit(room_dic_array)
+			_on_room_message_received(room_dic_array)
 	elif txt.begins_with("="):
 		var new_text=txt.right(txt.length()-1)
 		if need_debug_message:
@@ -314,6 +315,7 @@ func exe_message(txt:String):
 			new_dic["uid"]=spl[7]
 			bullet_dic_array.append(new_dic)
 		bullet_message_received.emit(bullet_dic_array)
+		_on_bullet_message_received(bullet_dic_array)
 		if need_debug_message:
 			print_rich("[color=blue]《《《《弹幕信息处理结果：[/color]",bullet_dic_array)
 			debug_message.emit("[color=blue]《《《《弹幕信息处理结果：[/color]"+str(bullet_dic_array))
@@ -358,14 +360,18 @@ func poll() -> void:
 		last_state = state
 		if state == ws.STATE_OPEN:
 			connected_to_server.emit()
+			connected()
 		elif state == ws.STATE_CLOSED:
 			var code = ws.get_close_code()
 			var reason = ws.get_close_reason()
 			var res=[code, reason]
 
 			connection_closed.emit(res)
+			closed(res)
 	while ws.get_ready_state() == ws.STATE_OPEN and ws.get_available_packet_count():
-		message_received.emit(get_message())
+		var mes_data=get_message()
+		message_received.emit(mes_data)
+		get_mes(mes_data)
 func get_message() -> PackedByteArray:
 	if ws.get_available_packet_count() < 1:
 		return PackedByteArray()

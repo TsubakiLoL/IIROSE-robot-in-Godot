@@ -16,20 +16,8 @@ extends Control
 var graph_map_tscn=preload("res://NodeChat/graphe/tscn/graphe_map.tscn")
 var account_file:String="user://account.txt"
 
-func _ready() -> void:
-	IIROSE.debug_message.connect(multi_mes)
-	var f=FileAccess.open(account_file,FileAccess.READ)
-	if f==null:
-		f=FileAccess.open(account_file,FileAccess.WRITE)
-		f.close()
-	else:
-		f.close()
-		load_account()
-func _process(delta: float) -> void:
-	if IIROSE.is_login:
-		$Control2/TabContainer/iirose/MarginContainer/Control/flag.modulate=Color.GREEN
-	else:
-		$Control2/TabContainer/iirose/MarginContainer/Control/flag.modulate=Color.RED
+
+
 func multi_mes(str:String):
 	$loginmes/ScrollContainer/login_mes_label.append_text(str+"\n")
 func _on_welcome_pressed() -> void:
@@ -54,15 +42,7 @@ func _on_flag_pressed() -> void:
 	pass # Replace with function body.
 
 
-func _on_login_pressed() -> void:
-	var _name=$Control2/TabContainer/iirose/MarginContainer/Control/name.text
-	var p=$Control2/TabContainer/iirose/MarginContainer/Control/password.text
-	var r=$Control2/TabContainer/iirose/MarginContainer/Control/room.text
-	IIROSE.set_information(_name,p,r)
-	IIROSE.start_connect()
-	if $Control2/TabContainer/iirose/MarginContainer/Control/shouldsave.button_pressed:
-		save_account(_name,p,r)
-	pass # Replace with function body.
+
 func load_account():
 	var f=FileAccess.open(account_file,FileAccess.READ)
 	if f!=null:
@@ -104,7 +84,7 @@ func _on_gpt_save_pressed() -> void:
 
 
 func _on_move_pressed() -> void:
-	IIROSE.move_to_room($Control2/TabContainer/iirose/MarginContainer/Control/roommove.text)
+	#IIROSE.move_to_room($Control2/TabContainer/iirose/MarginContainer/Control/roommove.text)
 	pass # Replace with function body.
 
 
@@ -113,7 +93,7 @@ func _on_doc_pressed() -> void:
 	pass # Replace with function body.
 
 
-func _on_plugin_pressed() -> void:
+func _on_nodeset_market_pressed() -> void:
 	tab_container.set_current_tab(2)
 	%Webfile.refresh()
 	pass # Replace with function body.
@@ -139,7 +119,7 @@ func _on_editor_pressed() -> void:
 
 
 func _on_print_debug_toggled(toggled_on: bool) -> void:
-	IIROSE.need_debug_message=toggled_on
+	#IIROSE.need_debug_message=toggled_on
 	pass # Replace with function body.
 
 
@@ -155,4 +135,39 @@ func _on_login_mes_clear_pressed() -> void:
 
 func _on_iirose_chat_pressed() -> void:
 	%IiroseChat.popup()
+	pass # Replace with function body.
+
+
+func load_panel():
+	var all_panel=ModLoader.get_all_panel()
+	for i in all_panel:
+		var n=i[0]
+		var t=i[1]
+		var s=i[2]
+		if not t is PackedScene:
+			continue
+		var button=Button.new()
+		button.text=i[0]
+		%mod_panel_btn_add_pos.add_child(button)
+		var new_panel=t.instantiate()
+		if s is GDScript:
+			new_panel.script=s
+		%mod_panel_add_pos.add_child(new_panel)
+		button.pressed.connect(show_mod_panel.bind(new_panel))
+		pass
+	
+	
+	pass
+
+func show_mod_panel(panel):
+	for i in %mod_panel_add_pos.get_children():
+		i.hide()
+	panel.show()
+	%TabContainer.current_tab=4
+
+func _ready() -> void:
+	load_panel()
+
+
+func _on_plugin_pressed() -> void:
 	pass # Replace with function body.
