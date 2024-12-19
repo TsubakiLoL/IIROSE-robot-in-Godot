@@ -262,7 +262,7 @@ label_settings = SubResource("LabelSettings_uytei")
 
 [node name="Label2" type="Label" parent="Control2/TabContainer/welcome/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "椿的蔷薇花园工具集合"
+text = "椿的通用机器人"
 label_settings = SubResource("LabelSettings_rrdwp")
 
 [node name="Label4" type="Label" parent="Control2/TabContainer/welcome/MarginContainer/VBoxContainer"]
