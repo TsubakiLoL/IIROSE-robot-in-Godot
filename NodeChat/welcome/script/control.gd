@@ -137,7 +137,7 @@ func _on_iirose_chat_pressed() -> void:
 	%IiroseChat.popup()
 	pass # Replace with function body.
 
-
+##根据modloader加载的面板加载部分插件
 func load_panel():
 	var all_panel=ModLoader.get_all_panel()
 	for i in all_panel:
@@ -170,4 +170,5 @@ func _ready() -> void:
 
 
 func _on_plugin_pressed() -> void:
+	tab_container.set_current_tab(3)
 	pass # Replace with function body.

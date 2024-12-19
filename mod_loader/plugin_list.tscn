@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://g7f4rfphh8t"]
+
+[ext_resource type="Script" path="res://mod_loader/plugin_list.gd" id="1_5hvpf"]
+[ext_resource type="Script" path="res://tool/DrawerContainer.gd" id="1_hh26y"]
+[ext_resource type="PackedScene" uid="uid://b3q8ug0ni4qy" path="res://mod_loader/plugin_view.tscn" id="1_muyts"]
+[ext_resource type="PackedScene" uid="uid://c6m6fu5xl6fx4" path="res://mod_loader/texture_button.tscn" id="2_0exf4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_piwvi"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="plugin_list" type="Control"]
+layout_mode = 3
+anchor_top = 0.117834
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5hvpf")
+metadata/_edit_use_anchors_ = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="plugin_view_add_pos" type="VBoxContainer" parent="ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" parent="ScrollContainer/plugin_view_add_pos" instance=ExtResource("1_muyts")]
+layout_mode = 2
+
+[node name="PanelContainer2" parent="ScrollContainer/plugin_view_add_pos" instance=ExtResource("1_muyts")]
+layout_mode = 2
+
+[node name="PanelContainer3" parent="ScrollContainer/plugin_view_add_pos" instance=ExtResource("1_muyts")]
+layout_mode = 2
+
+[node name="PanelContainer4" parent="ScrollContainer/plugin_view_add_pos" instance=ExtResource("1_muyts")]
+layout_mode = 2
+
+[node name="PanelContainer5" parent="ScrollContainer/plugin_view_add_pos" instance=ExtResource("1_muyts")]
+layout_mode = 2
+
+[node name="PanelContainer6" parent="ScrollContainer/plugin_view_add_pos" instance=ExtResource("1_muyts")]
+layout_mode = 2
+
+[node name="DrawerContainer" type="Container" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hh26y")
+custom_button_size = Vector2(80, 0)
+button_tscn = ExtResource("2_0exf4")
+button_model = 2
+animation_model = 8
+is_open = false
+
+[node name="Panel" type="Panel" parent="DrawerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_piwvi")

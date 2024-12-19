@@ -55,10 +55,8 @@ func change_state(id:String,state)->void:
 		add_user_instance(id)
 	if not user_data_dic.has(id):
 		user_data_dic[id]={}
-	user_instance_array[id][0].exit_state(id)
 	user_instance_array[id][0]=state
 	user_instance_array[id][1]=Time.get_ticks_msec()
-	user_instance_array[id][0].enter_state(id)
 	pass
 ##获取字典内对应的data数据，如果数据不存在则创建新的数据，并返回0
 func get_data(id:String,data_name:String)->float:
@@ -173,7 +171,7 @@ func prompt_message(id:String,triger_type:String,mes:Dictionary):
 		#})
 	if not id in user_instance_array:
 		add_user_instance(id)
-	var now_state:ChatNodeState=user_instance_array[id][0]
+	var now_state=user_instance_array[id][0]
 	#now_state.prompt_message(id,triger_type,mes)
 	now_state.sent_data_to_out([triger_type,mes],0,id)
 	if is_in_debug:

@@ -29,6 +29,8 @@ var mod_panel_db:Dictionary={}
 #加载mod的路径
 var load_path:String="user://mod"
 
+##当系统装载的插件更改时发出
+signal mod_changed()
 
 func _ready() -> void:
 	load_mod_from_path(load_path)
@@ -88,7 +90,7 @@ func install_mod(mod_name:String,mod_data:Dictionary):
 		return 
 	var mod_path:String=mod_data["mod_path"]
 	#开辟mod空间
-	mod_origin_db["mod_name"]=mod_data
+	mod_origin_db[mod_name]=mod_data
 	#加载单例
 	if mod_data.has("autoload"):
 		var auto_load_dic:Dictionary=mod_data["autoload"]
@@ -127,7 +129,7 @@ func install_mod(mod_name:String,mod_data:Dictionary):
 				if single_panel_data.has("script"):
 					tscn_script=load(mod_path+single_panel_data["script"])
 				mod_panel_db[mod_name].append([i,tscn,tscn_script])
-
+	mod_changed.emit()
 #依据mod名称卸载mod
 func uninstall_mod(mod_name:String):
 	print("卸载模块:"+mod_name)
@@ -158,6 +160,7 @@ func uninstall_mod(mod_name:String):
 	#卸载面板
 	if mod_panel_db.has(mod_name):
 		mod_panel_db.erase(mod_name)
+	mod_changed.emit()
 #获取全部节点的队列
 func get_all_node_class():
 	var res:Array=[]
@@ -196,3 +199,9 @@ func get_all_panel():
 	for i in mod_panel_db.values():
 		res.append_array(i)
 	return res
+
+#获取全部mod的加载数据
+func get_all_mod_origin_data():
+	return mod_origin_db
+	
+	pass

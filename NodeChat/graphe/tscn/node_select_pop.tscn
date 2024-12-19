@@ -11,8 +11,8 @@ script = ExtResource("1_66iwf")
 [node name="node_select" parent="." instance=ExtResource("1_74nrn")]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 226.0
-offset_bottom = 496.0
+offset_right = -4.0
+offset_bottom = -4.0
 
 [connection signal="select_node" from="node_select" to="." method="_on_node_select_select_node"]
 [connection signal="selected" from="node_select" to="." method="_on_node_select_selected"]

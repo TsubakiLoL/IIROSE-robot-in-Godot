@@ -20,9 +20,7 @@ class_name GrapheMap
 @onready var editor: MenuButton = $VBoxContainer/HBoxContainer/editor
 @onready var doc: MenuButton = $VBoxContainer/HBoxContainer/doc
 @onready var file_name: Label = $VBoxContainer/HBoxContainer/file_name
-@onready var online_message: Button = $VBoxContainer/HBoxContainer/online_message
 @onready var should_save: AcceptDialog = $should_save
-@onready var login: PopupPanel = $login
 @onready var mes_window: PopupPanel = $message
 @onready var debug_mes: PopupPanel = $debug
 @onready var debug_window: Window = $DebugWindow
@@ -70,12 +68,14 @@ func save_state_root(file_path:String):
 			
 	
 func save_now_file():
+	print("尝试保存")
 	if now_file_path!="(*)":
 		save_state_root(now_file_path)
 		file_changed=false
 	else:
 		save_file()
 		file_changed=false
+		
 		pass
 func open_state_root(file_path:String):
 	var f=FileAccess.open(file_path,FileAccess.READ)
@@ -165,6 +165,7 @@ func _on_graph_edit_delete_nodes_request(nodes: Array[StringName]) -> void:
 func _ready() -> void:
 	#IIROSE.set_information("雪村千绘莉","tsubaki","66234e757a3ce")
 	#IIROSE.start_connect()
+	nodeset.get_popup().index_pressed.connect(nodeset_pressed)
 	pass
 	
 func nodeset_pressed(id:int):
@@ -255,10 +256,6 @@ func _on_should_save_confirmed() -> void:
 	open_state_root(next_file_path)
 	pass # Replace with function body.
 
-
-func _on_online_message_pressed() -> void:
-	login.show()
-	pass # Replace with function body.
 
 
 func _on_mes_pressed() -> void:
